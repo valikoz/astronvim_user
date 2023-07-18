@@ -1,6 +1,12 @@
 return {
   -- Set colorscheme to use
   colorscheme = "astrodark",
+
+  options = {
+    opt = {
+      wrap = true, -- sets vim.opt.wrap
+    },
+  },
   
   plugins = {
     {
