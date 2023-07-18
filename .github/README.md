@@ -18,5 +18,5 @@ git clone https://github.com/Valikoz/astonvim_user.git $env:LOCALAPPDATA\nvim\lu
 - Initialize AstroNvim
 
 ```powershell
-nvim --headless -c 'autocmd User PackerComplete quitall' -c 'PackerSync'
+nvim --headless -c 'autocmd User PackerComplete quitall' -c 'AstroUpdate'
 ```
