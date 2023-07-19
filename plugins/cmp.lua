@@ -1,6 +1,10 @@
 return { 
   -- override nvim-cmp plugin
   "hrsh7th/nvim-cmp",
+  dependencies = {
+    "hrsh7th/cmp-omni", -- add cmp source as dependency of cmp
+    ft = "tex",
+  },
   -- override the options table that is used in the `require("cmp").setup()` call
   opts = function(_, opts)
     -- opts parameter is the default options table
@@ -50,6 +54,20 @@ return {
         fallback()
       end
     end, {'i', 's'})
+    -- modify the sources part of the options table
+    opts.sources = cmp.config.sources {
+      { name = "nvim_lsp", priority = 1000 },
+      { name = "luasnip", priority = 750 },
+      {
+        name = "buffer",
+        priority = 500,
+        option = {
+          get_bufnrs = function() return vim.api.nvim_list_bufs() end,
+        },
+      },
+      { name = "path", priority = 250 },
+      { name = "omni", priority = 50 },
+    }
     return opts
   end,
 }
