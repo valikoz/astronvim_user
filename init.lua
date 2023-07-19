@@ -5,6 +5,7 @@ return {
   options = {
     opt = {
       wrap = true, -- sets vim.opt.wrap
+      swapfile = false,
     },
   },
   
