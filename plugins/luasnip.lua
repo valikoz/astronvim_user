@@ -1,11 +1,20 @@
 return {
   "L3MON4D3/LuaSnip",
-  config = function(plugin, opts)
-    -- include the default astronvim config that calls the setup call
-    require "plugins.configs.luasnip"(plugin, opts)
+  config = function()
+    require("luasnip").config.setup {
+      history = function()
+        if vim.bo.filetype == 'tex' then
+          return true
+        else return false
+        end
+      end,
+      enable_autosnippets = true,
+      store_selection_keys = "<Tab>",
+    }
     -- load snippets paths
     require("luasnip.loaders.from_lua").lazy_load {
       paths = { "./lua/user/snippets" }
     }
   end,
+  dependencies = {},
 }
