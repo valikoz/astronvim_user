@@ -1,27 +1,16 @@
 --[[ Imports ]]
 local ls = require("luasnip")
-local s = ls.snippet
-local fmta = require("luasnip.extras.fmt").fmta
-local f = ls.function_node
 local make_condition = require("luasnip.extras.conditions").make_condition
-local conditions = require("snippets.tex.utils.conditions")
+local conditions = require("user.snippets.tex.utils.conditions")
 local in_math = make_condition(conditions.in_math)
 local no_backslash = conditions.no_backslash
-local utils = require('snippets.tex.utils')
-local toautobs = require('snippets.tex.utils.symbols').toautobs
-local fortips = require('snippets.tex.utils.symbols').fortips
+local utils = require('user.snippets.tex.utils')
+local toautobs = require('user.snippets.tex.utils.symbols').toautobs
+local fortips = require('user.snippets.tex.utils.symbols').fortips
 
 local M = {}
 
 M.setup = function()
-  
-  nodes = fmta([[\<>]],
-    {
-      f(function(_, snippet)
-        return snippet.trigger
-      end, {})
-    }
-  )
   
   local autosnippets = {}
   -- Make auto backslash snippets
@@ -39,7 +28,7 @@ M.setup = function()
         end
       end
       opts.condition = in_math * no_backslash
-      snip = s(context, nodes, opts)
+      snip = utils.bs_snip(context, opts)
       table.insert(autosnippets, snip)
     end
   end
@@ -50,13 +39,14 @@ M.setup = function()
     for _, settings in ipairs(v) do
       context, opts = settings.context, {}
       opts.show_condition = in_math
-      snip = s(context, nodes, opts)
+      -- snip = s(context, nodes, opts)
+      snip = utils.bs_snip(context, opts)
       table.insert(snippets, snip)
     end
   end
 
   ls.add_snippets("tex", autosnippets, {
-    type = "autosnippets"
+    type = "autosnippets",
   })
 
   ls.add_snippets("tex", snippets)

@@ -1,20 +1,8 @@
 --[[ Imports ]]
-local ls = require("luasnip")
-local s = ls.snippet
-local sn = ls.snippet_node
-local i = ls.insert_node
-local t = ls.text_node
-local c = ls.choice_node
-local d = ls.dynamic_node
-local r = ls.restore_node
-local extras = require("luasnip.extras")
-local rep = extras.rep
-local fmta = require("luasnip.extras.fmt").fmta
 local make_condition = require("luasnip.extras.conditions").make_condition
-local conditions = require("snippets.tex.utils.conditions")
+local conditions = require("user.snippets.tex.utils.conditions")
 local in_text = make_condition(conditions.in_text)
 local in_math = make_condition(conditions.in_math)
-
 
 local M = {
 	s(

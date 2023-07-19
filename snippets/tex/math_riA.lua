@@ -5,27 +5,15 @@ A --> auto expand, snippetType="autosnippet".
 ]]
 
 --[[ Imports ]]
-local ls = require("luasnip")
-local i = ls.insert_node
-local sn = ls.snippet_node
-local c = ls.choice_node
-local f = ls.function_node
-local d = ls.dynamic_node
-local r = ls.restore_node
-local postfix = require("luasnip.extras.postfix").postfix
-local extras = require("luasnip.extras")
-local l = extras.lambda
-local fmta = require("luasnip.extras.fmt").fmta
 local make_condition = require("luasnip.extras.conditions").make_condition
-local conditions = require("snippets.tex.utils.conditions")
+local conditions = require("user.snippets.tex.utils.conditions")
 local in_math = make_condition(conditions.in_math)
-local snippet = ls.extend_decorator.apply(postfix,
-  {
+local snippet = require("luasnip").extend_decorator.apply(postfix,
+  { 
     snippetType = "autosnippet",
-    condition = in_math
+    condition = in_math,
   }
 )
-
 
 local math_riA = {
   -- Conflict with matrix snippet:
