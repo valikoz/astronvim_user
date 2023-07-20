@@ -1,6 +1,6 @@
 return {
   -- Set colorscheme to use
-  colorscheme = "astrotheme",
+  colorscheme = "astrodark",
 
   options = {
     opt = {
@@ -8,6 +8,9 @@ return {
       swapfile = false,
     },
   },
-  
-  plugins = {},
+
+  autocmds = {
+    -- Remove whitespace
+    vim.api.nvim_create_user_command('WhiteSpace', '%s/\\s\\+$//e|nohlsearch', {})
+  },
 }
