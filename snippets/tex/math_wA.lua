@@ -170,15 +170,15 @@ local math_wA = {
 		{ trig = "dint", dscr = [[\int (wA)]] },
 		fmta(
 			[[
-    \int<> <>
+    \int<> <> \dd <>
     ]],
       {
         c(1,
           {
             fmta([[\limits_{<>}^{<>}]], {i(1, [[-\infty]]), i(2, [[\infty]])}),
-            t("")
+            t "" 
           }
-        ), i(0)
+        ), i(2), i(0),
       }
 		)
 	),
