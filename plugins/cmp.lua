@@ -2,8 +2,8 @@ return {
   -- override nvim-cmp plugin
   "hrsh7th/nvim-cmp",
   dependencies = {
-    "hrsh7th/cmp-omni", -- add cmp source as dependency of cmp
-    ft = "tex",
+    { "hrsh7th/cmp-omni", ft = "tex", },
+    { "hrsh7th/cmp-nvim-lua", ft = "lua", },
   },
   -- override the options table that is used in the `require("cmp").setup()` call
   opts = function(_, opts)
@@ -66,6 +66,7 @@ return {
         },
       },
       { name = "path", priority = 250 },
+      { name = "nvim_lua", priority = 50 },
       { name = "omni", priority = 50 },
     }
     return opts
