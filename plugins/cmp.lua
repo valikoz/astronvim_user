@@ -37,7 +37,6 @@ return {
         fallback()
       end
     end, {'i', 's'})
-    -- return the new table to be used
     opts.mapping['<Right>'] = cmp.mapping(function(fallback)
       if luasnip.jumpable(1) then
         luasnip.jump(1)
@@ -54,6 +53,24 @@ return {
         fallback()
       end
     end, {'i', 's'})
+    opts.mapping["<Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
+      elseif luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
+      else
+        fallback()
+      end
+    end, { "i", "s" })
+    opts.mapping["<S-Tab>"] = cmp.mapping(function(fallback)
+      if cmp.visible() then
+        cmp.select_prev_item { behavior = cmp.SelectBehavior.Select } 
+      elseif luasnip.jumpable(-1) then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { "i", "s" })
     -- modify the sources part of the options table
     opts.sources = cmp.config.sources {
       { name = "nvim_lsp", priority = 1000 },
@@ -68,7 +85,8 @@ return {
       { name = "path", priority = 250 },
       { name = "nvim_lua", priority = 50 },
       { name = "omni", priority = 50 },
-    }
+    }    
+    -- return the new table to be used
     return opts
   end,
 }
