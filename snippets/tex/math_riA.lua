@@ -1,4 +1,8 @@
 --[[
+WARN: snippets are activated in spite of the match_pattern?
+
+Move into math_riA_v1
+
 r --> regex;
 i --> snippet will expand at word boundaries, wordTrig=false;
 A --> auto expand, snippetType="autosnippet".
@@ -7,7 +11,6 @@ A --> auto expand, snippetType="autosnippet".
 --[[ Imports ]]
 local ls = require("luasnip")
 local sn = ls.snippet_node
-local t = ls.text_node
 local i = ls.insert_node
 local f = ls.function_node
 local c = ls.choice_node
@@ -26,8 +29,8 @@ require("luasnip").extend_decorator.register(postfix,
   { arg_indx = 1, extend = context_extend },
   { arg_indx = 3 }
 )
-local snippet = require("luasnip").extend_decorator.apply(postfix,
-  { snippetType = "autosnippet", },
+local autopostfix = require("luasnip").extend_decorator.apply(postfix,
+  { snippetType = "autosnippet" },
   { condition = in_math, }
 )
 
@@ -59,7 +62,7 @@ local math_riA = {
 	-- ),
 
   -- More about lua patterns http://www.lua.org/manual/5.1/manual.html#5.4.1
-  snippet(
+  autopostfix(
     {
       trig = "vec",
       dscr = "\\vector (riA: postfix)",
@@ -70,7 +73,7 @@ local math_riA = {
       l("\\vec{" .. l.POSTFIX_MATCH .. "}")
     }
   ),
-  snippet(
+  autopostfix(
     {
       trig = "hat",
       dscr = "\\hat (riA: postfix)",
@@ -81,7 +84,7 @@ local math_riA = {
       l("\\hat{" .. l.POSTFIX_MATCH .. "}")
     }
   ),
-  snippet(
+  autopostfix(
     {
       trig = "bar",
       dscr = "\\overline (riA: postfix)",
@@ -91,7 +94,7 @@ local math_riA = {
       l("\\overline{" .. l.POSTFIX_MATCH .. "}")
     }
   ),
-  snippet(
+  autopostfix(
     {
       trig = "dot",
       dscr = "\\dot (riA: postfix)",
@@ -107,13 +110,12 @@ local math_riA = {
       )
     }
   ),
-  snippet(
+  autopostfix(
     {
       trig="/",
       dscr = "\\frac (riA: postfix)",
-      priority = 999, -- important: prio of `fraction (autoexpand)` is 1000
-      match_pattern = "[^%s$]+$",
-      -- docstring = ""
+      priority = 999, -- important: prio of `fraction (wA)` is 1000
+      match_pattern = "[^%s]$",
     },
     fmta(
       [[\frac{<>}{<>}<>]],
@@ -143,24 +145,18 @@ local math_riA = {
       }
     )
   ),
-  -- auto brackets []
-  snippet(".brd", {
-	  d(1, function (_, parent)
-		  return sn(nil, {t("[" .. parent.env.POSTFIX_MATCH .. "]")})
-	  end)
-  }),
   -- auto backslash \
-  snippet({
+  autopostfix({
       trig = [[.bs]],
       dscr = "auto backslash (riA: postfix)",
-      match_pattern = "%a+"
+      match_pattern = "%a+",
     }, {
       f(function(_, parent)
           return "\\" .. parent.snippet.env.POSTFIX_MATCH
       end, {})
     }
   ),
-  snippet(
+  autopostfix(
     {
       trig = "mcal",
       dscr = [[\mathcal (riA: postfix)]],
@@ -174,4 +170,4 @@ local math_riA = {
 
 }
 
-return math_riA
+-- return math_riA
