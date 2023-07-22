@@ -19,14 +19,14 @@ local line_begin = require("luasnip.extras.conditions.expand").line_begin
 local make_condition = require("luasnip.extras.conditions").make_condition
 local conditions = require("user.snippets.tex.utils.conditions")
 local in_bullets = make_condition(conditions.in_bullets)
-local snippet = require("luasnip").extend_decorator.apply(s,
+local autosnip = require("luasnip").extend_decorator.apply(s,
   { snippetType = "autosnippet" },
   { condition = line_begin }
 )
 
 
 local bwA = {
-	snippet(
+	autosnip(
     {
       trig = "beg",
       dscr = [[\begin{}...\end{} environment (bwA)]]
@@ -43,7 +43,7 @@ local bwA = {
         i(0), rep(1) }
 		)
 	),
-  snippet(
+  autosnip(
     {
       trig = "ali",
       dscr = [[\begin{align}...\end{align} environment (bwA)]]
@@ -70,7 +70,7 @@ local bwA = {
       }
     )
 	),
-	snippet(
+	autosnip(
     {
       trig = "eqn",
       dscr = [[\begin{equation}...\end{equation} (bwA)]]
@@ -91,7 +91,7 @@ local bwA = {
       }
     )
 	),
-	snippet(
+	autosnip(
     {
       trig = "enum",
       dscr = [[\begin{enumerate}...\end{enumerate} (bwA)]]
@@ -133,7 +133,7 @@ local bwA = {
 		)
 	),
 
-	snippet(
+	autosnip(
     {
 		  trig = "item",
       dscr = [[\begin{itemize}...\end{itemize} (bwA)]]
@@ -161,11 +161,11 @@ local bwA = {
 		)
 	),
   -- generate new bullet points
-	s({ trig="-", dscr=[[\item (bwA)]], snippetType="autosnippet"},
+	autosnip({ trig="-", dscr=[[\item (bwA)]], },
     { t("\\item ") },
 	  { condition = line_begin * in_bullets }
   ),
-	s({ trig="*", dscr=[[\item[] (bwA)]], snippetType="autosnippet"},
+	autosnip({ trig="*", dscr=[[\item[] (bwA)]], },
 	  fmta([[ \item[<>] <> ]],
 	    { i(1), i(0) }
     ),
