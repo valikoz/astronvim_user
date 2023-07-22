@@ -2,12 +2,7 @@ return {
   "L3MON4D3/LuaSnip",
   config = function()
     require("luasnip").config.setup {
-      history = function()
-        if vim.bo.filetype == 'tex' then
-          return true
-        else return false
-        end
-      end,
+      history = (vim.bo.filetype == 'tex'),
       enable_autosnippets = true,
       store_selection_keys = "<Tab>",
     }
