@@ -5,14 +5,30 @@ A --> auto expand, snippetType="autosnippet".
 ]]
 
 --[[ Imports ]]
+local ls = require("luasnip")
+local sn = ls.snippet_node
+local t = ls.text_node
+local i = ls.insert_node
+local f = ls.function_node
+local c = ls.choice_node
+local d = ls.dynamic_node
+local r = ls.restore_node
+local extras = require("luasnip.extras")
+local l = extras.lambda
+local fmta = require("luasnip.extras.fmt").fmta
+local postfix = require("luasnip.extras.postfix").postfix
+
 local make_condition = require("luasnip.extras.conditions").make_condition
 local conditions = require("user.snippets.tex.utils.conditions")
 local in_math = make_condition(conditions.in_math)
+local context_extend = require("user.snippets.tex.utils").context_extend
+require("luasnip").extend_decorator.register(postfix,
+  { arg_indx = 1, extend = context_extend },
+  { arg_indx = 3 }
+)
 local snippet = require("luasnip").extend_decorator.apply(postfix,
-  { 
-    snippetType = "autosnippet",
-    condition = in_math,
-  }
+  { snippetType = "autosnippet", },
+  { condition = in_math, }
 )
 
 local math_riA = {
@@ -96,7 +112,7 @@ local math_riA = {
       trig="/",
       dscr = "\\frac (riA: postfix)",
       priority = 999, -- important: prio of `fraction (autoexpand)` is 1000
-      match_pattern = "[^%s]+$",
+      match_pattern = "[^%s$]+$",
       -- docstring = ""
     },
     fmta(

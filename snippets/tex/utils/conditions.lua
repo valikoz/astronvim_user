@@ -33,7 +33,7 @@ function M.in_preamble()
 end
 
 function M.in_text()
-	return env("document") and not M.in_math()
+	return not M.in_math() -- and env("document")
 end
 
 function M.in_tikz()

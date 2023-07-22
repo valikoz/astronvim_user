@@ -10,47 +10,49 @@ local fortips = require('user.snippets.tex.utils.symbols').fortips
 
 local M = {}
 
-M.setup = function()
-  
-  local autosnippets = {}
-  -- Make auto backslash snippets
-  for _, v in pairs(toautobs) do
-    for _, settings in ipairs(v) do
-      context, opts = settings.context, {}
-      context.wordTrig = false
-      if string.match(context.trig, "%[.*%]") then
-        context.regTrig = true
-        context.dscr = "auto backslash (irA)" 
-      else
-        context.regTrig = false
-        if context.dscr == nil then
-          context.dscr = "auto backslash (iA)"
-        end
-      end
-      opts.condition = in_math * no_backslash
-      snip = utils.bs_snip(context, opts)
-      table.insert(autosnippets, snip)
+M.autosnippets = {}
+M.snippets = {}
+
+-- Make auto backslash snippets
+local regtrig = nil
+for _, v in pairs(toautobs) do
+  for _, snip_args in ipairs(v) do
+    if not snip_args.context.trig then
+		  error("context doesn't include a `trig` key which is mandatory", 2)
+      goto skip_to_next
+    elseif string.match(snip_args.context.trig, "%[.*%]") then
+      regtrig = true
+    else
+      regtrig = false
     end
+    table.insert(M.autosnippets,
+      utils.bs_snip(
+        {
+          trig = snip_args.context.trig,
+          dscr = snip_args.context.dscr or "auto backslash",
+          wordTrig = false,
+          regTrig = regtrig,
+        }, { condition = in_math * no_backslash }
+      )
+    )
+    ::skip_to_next::
   end
-
-  local snippets = {}
-  -- Make normal bs snippets for cmp
-  for _, v in pairs(fortips) do
-    for _, settings in ipairs(v) do
-      context, opts = settings.context, {}
-      opts.show_condition = in_math
-      -- snip = s(context, nodes, opts)
-      snip = utils.bs_snip(context, opts)
-      table.insert(snippets, snip)
-    end
-  end
-
-  ls.add_snippets("tex", autosnippets, {
-    type = "autosnippets",
-  })
-
-  ls.add_snippets("tex", snippets)
-
 end
 
-return M.setup()
+-- Make normal bs snippets for cmp
+for _, v in pairs(fortips) do
+  for _, snip_args in ipairs(v) do
+    table.insert(M.snippets,
+      utils.bs_snip(
+        snip_args.context,
+        {show_condition = in_math * no_backslash}
+      )
+    )
+  end
+end
+
+ls.add_snippets("tex", M.autosnippets, {
+  type = "autosnippets",
+})
+
+ls.add_snippets("tex", M.snippets)

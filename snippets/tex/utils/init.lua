@@ -28,7 +28,7 @@ local fmta = require("luasnip.extras.fmt").fmta
 
 local M = {}
 
-M.mat = function(args, snip)
+M.mat = function(_, snip)
 	local rows = tonumber(snip.captures[2])
 	local cols = tonumber(snip.captures[3])
 	local nodes = {}
@@ -48,7 +48,7 @@ M.mat = function(args, snip)
 	return sn(nil, nodes)
 end
 
-M.case = function(args, snip)
+M.case = function(_, snip)
 	local rows = tonumber(snip.captures[1]) or 2 -- default option 2 for cases
 	local cols = 2 -- fix to 2 cols
 	local nodes = {}
@@ -68,8 +68,9 @@ M.case = function(args, snip)
 	return sn(nil, nodes)
 end
 
----@return as many `\dd` as multiplicity of integral
-M.integrals = function(args, snip)
+---@return function (snippet node) 
+--as many `\dd` as multiplicity of integral
+M.integrals = function(_, snip)
 	local vars = tonumber(snip.captures[1])
 	local nodes = {}
 	for j = 1, vars do
@@ -80,8 +81,8 @@ M.integrals = function(args, snip)
 end
 
 -- visual util to add insert node
----@return selected text into insert node
-M.get_visual = function(args, parent)
+---@return function (snippet node)
+M.get_visual = function(_, parent)
 	if #parent.snippet.env.SELECT_RAW > 0 then
 		return sn(nil, i(1, parent.snippet.env.SELECT_RAW))
 	else -- If SELECT_RAW is empty, return a blank insert node
@@ -89,8 +90,8 @@ M.get_visual = function(args, parent)
 	end
 end
 
----@return selected text
-M.select_raw = function(args, snip)
+---@return table `res`: selected text
+M.select_raw = function(_, snip)
   local res, env = {}, snip.env
   for _, val in ipairs(env.LS_SELECT_RAW) do table.insert(res, val) end
   return res
@@ -101,10 +102,6 @@ end
 ---@param context table
 ---@param opts table
 M.bs_snip = function(context, opts)
-	if not context.trig then
-		error("context doesn't include a `trig` key which is mandatory", 2)
-	end
-  opts = opts or {}
   return s(
     context,
     fmta([[\<>]],
@@ -114,9 +111,20 @@ M.bs_snip = function(context, opts)
         end, {})
       }
     ),
-    opts
+    opts or {}
   )
 end
 
+M.context_extend = function(arg, extend)
+	local argtype = type(arg)
+	if argtype == "string" then
+		arg = { trig = arg }
+	elseif argtype == "table" then
+		return vim.tbl_extend("keep", arg, extend or {})
+	end
+	-- fall back to unchanged arg.
+	-- log this, probably.
+	return arg
+end
 
 return M

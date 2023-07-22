@@ -5,15 +5,26 @@ A --> auto expand, snippetType="autosnippet".
 ]]
 
 --[[ Imports ]]
+local ls = require("luasnip")
+local s = ls.snippet
+local sn = ls.snippet_node
+local t = ls.text_node
+local i = ls.insert_node
+local f = ls.function_node
+local c = ls.choice_node
+local d = ls.dynamic_node
+local r = ls.restore_node
+local fmta = require("luasnip.extras.fmt").fmta
+
 local make_condition = require("luasnip.extras.conditions").make_condition
 local conditions = require("user.snippets.tex.utils.conditions")
 local in_math = make_condition(conditions.in_math)
 local snippet = require('luasnip').extend_decorator.apply(s,
-  { 
+  {
     regTrig = true,
     snippetType = "autosnippet",
-    condition = in_math,
-  }
+  },
+  { condition = in_math, }
 )
 local utils = require('user.snippets.tex.utils')
 local symbols = require('user.snippets.tex.utils.symbols')
@@ -28,7 +39,7 @@ local math_wrA = {
 		fmta(
       [[\frac{<>}{<>}<>]],
 			{
-        f(function(args, snip) return snip.captures[1] end, {}),
+        f(function(_, snip) return snip.captures[1] end, {}),
         c(1,
           {
             r(1, '2', i(1)),
@@ -53,7 +64,7 @@ local math_wrA = {
       ]],
 			{
 				f(function(_, snip)
-					cap = snip.captures[1]
+					local cap = snip.captures[1]
 					if symbols.delimiters[cap] == nil then
 						cap = "p"
 					end -- set default to parentheses
@@ -87,7 +98,7 @@ local math_wrA = {
         end),
         f(function(_, snip)
           if snip.captures[4] == "a" then
-            out = string.rep("c", tonumber(snip.captures[3]) - 1)
+            local out = string.rep("c", tonumber(snip.captures[3]) - 1)
             return "[" .. out .. "|c]"
           end
           return ""
@@ -106,7 +117,7 @@ local math_wrA = {
       dscr = [[\_dots (wrA)]]
     },
 		fmta([[\<>dots]], {
-      f(function(args, snip) return snip.captures[1] end, {})
+      f(function(_, snip) return snip.captures[1] end, {})
     })
 	),
 	snippet(
@@ -124,9 +135,9 @@ local math_wrA = {
 					  [[ \<><>nt<> ]],
 					  {
 						  c(1, { t "" , t "o" }),
-						  f(function(_, parent, snip)
-							  inum = tonumber(parent.parent.captures[1])
-							  res = string.rep("i", inum)
+						  f(function(_, parent, _)
+							  local inum = tonumber(parent.parent.captures[1])
+							  local res = string.rep("i", inum or 0)
 							  return res
 						  end),
 						  c(2,

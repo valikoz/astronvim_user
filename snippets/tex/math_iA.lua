@@ -5,6 +5,16 @@ A --> auto expand, snippetType="snippet".
 ]]
 
 --[[ Imports ]]
+local ls = require("luasnip")
+local s = ls.snippet
+local sn = ls.snippet_node
+local t = ls.text_node
+local i = ls.insert_node
+local c = ls.choice_node
+local d = ls.dynamic_node
+local r = ls.restore_node
+local fmta = require("luasnip.extras.fmt").fmta
+
 local make_condition = require("luasnip.extras.conditions").make_condition
 local conditions = require("user.snippets.tex.utils.conditions")
 local in_math = make_condition(conditions.in_math)
@@ -12,8 +22,8 @@ local snippet = require("luasnip").extend_decorator.apply(s,
   {
     wordTrig = false,
     snippetType = "autosnippet",
-    condition = in_math,
-  }
+  },
+  { condition = in_math, }
 )
 
 
@@ -29,36 +39,36 @@ local math_iA = {
       docstring = "^{}"
     },
     fmta(
-    [[^{<>}<>]], 
-	    { d(1, 
+    [[^{<>}<>]],
+	    { d(1,
           function(_, snip)
             local res, env = {}, snip.env
             for _, val in ipairs(env.LS_SELECT_RAW) do table.insert(res, val) end
-            return sn(nil, 
+            return sn(nil,
               { -- sn(...) first would cause infinite loop of expansion.
                 c(1,
                   {
-                    sn(nil, { r(1, '1', i(1, res)) }), 
-                    sn(nil, 
+                    sn(nil, { r(1, '1', i(1, res)) }),
+                    sn(nil,
                       fmta([[<>(<>)]],
                         {
                           i(1), r(2, '1')
                         }
                       )
-                    ), 
-                    sn(nil, 
+                    ),
+                    sn(nil,
                       fmta([[<>\left(<>\right)]],
                         {
                           i(1), r(2, '1')
                         }
                       )
-                    ) 
+                    )
                   }
                 )
               }
-            )  
-          end, {}), 
-        i(0) 
+            )
+          end, {}),
+        i(0)
       }
     )
   ),
@@ -69,37 +79,37 @@ local math_iA = {
     },
     fmta(
       [[\sqrt<>{<>}<>]],
-	    { 
+	    {
         c(1, { t "", sn(nil, fmta("[<>]", { i(1, "3") })) }),
-        d(2, 
+        d(2,
           function(_, snip)
             local res, env = {}, snip.env
             for _, val in ipairs(env.LS_SELECT_RAW) do table.insert(res, val) end
-            return sn(nil, 
+            return sn(nil,
               { -- sn(...) first would cause infinite loop of expansion.
                 c(1,
                   {
-                    sn(nil, { r(1, '1', i(1, res)) }), 
-                    sn(nil, 
+                    sn(nil, { r(1, '1', i(1, res)) }),
+                    sn(nil,
                       fmta([[(<>)<>]],
                         {
                           r(1, '1'), i(2)
                         }
                       )
-                    ), 
-                    sn(nil, 
+                    ),
+                    sn(nil,
                       fmta([[\left(<>\right)<>]],
                         {
                           r(1, '1'), i(2)
                         }
                       )
-                    ) 
+                    )
                   }
                 )
               }
-            )  
-          end, {}), 
-        i(0) 
+            )
+          end, {}),
+        i(0)
       }
     )
   ),
@@ -108,7 +118,7 @@ local math_iA = {
       dscr = "subscript _{} (iA)"
     },
     {
-      c(1, 
+      c(1,
         {
           sn(nil, fmta([[_{<>}<>]], { r(1, '1.0.1', i(1)), i(0) })),
           sn(nil, fmta([[_<>]], { r(1, '1.0.1') }))

@@ -3,17 +3,25 @@ w --> the snippet is only expanded if the word ([%w_]+) before
 the cursor matches the trigger entirely, wordTrig=true;
 A --> auto expand, snippetType="autosnippet".
 ]]
-
 --[[ Imports ]]
+local ls = require("luasnip")
+local s = ls.snippet
+local sn = ls.snippet_node
+local t = ls.text_node
+local i = ls.insert_node
+local f = ls.function_node
+local c = ls.choice_node
+local d = ls.dynamic_node
+local r = ls.restore_node
+local fmta = require("luasnip.extras.fmt").fmta
+
 local make_condition = require("luasnip.extras.conditions").make_condition
 local conditions = require("user.snippets.tex.utils.conditions")
 local in_math = make_condition(conditions.in_math)
 local in_align = make_condition(conditions.in_align)
 local snippet = require('luasnip').extend_decorator.apply(s,
-  {
-    snippetType = "autosnippet",
-    condition = in_math,
-  }
+  { snippetType = "autosnippet", },
+  { condition = in_math, }
 )
 local utils = require("user.snippets.tex.utils")
 
@@ -24,7 +32,7 @@ local math_wA = {
 		fmta([[\frac{<>}{<>}<>]],
       { d(1,
           function(_, snip)
-            res = utils.select_raw(_, snip)
+            local res = utils.select_raw(_, snip)
             return  sn(nil,
               {
                 c(1,
@@ -75,9 +83,9 @@ local math_wA = {
 		{ trig = "vec", dscr = [[\vec (wA)]], priority = 998, docstring = [[\vec{}]] },
 		fmta([[\<>{<>}<>]],
       {
-        f(function(_, snippet) return snippet.trigger end, {}),
+        f(function(_, snip) return snip.trigger end, {}),
         d(1, function(_, snip)
-          cap = utils.select_raw(_, snip)
+          local cap = utils.select_raw(_, snip)
           return sn(nil, {i(1, cap)})
         end, {}),
         i(0)
@@ -88,9 +96,9 @@ local math_wA = {
 		{ trig = "hat", dscr = [[\hat (wA)]], docstring = [[\hat{}]] },
 		fmta([[\<>{<>}<>]],
       {
-        f(function(_, snippet) return snippet.trigger end, {}),
+        f(function(_, snip) return snip.trigger end, {}),
         d(1, function(_, snip)
-          cap = utils.select_raw(_, snip)
+          local cap = utils.select_raw(_, snip)
           return sn(nil, {i(1, cap)})
         end, {}),
         i(0)
@@ -102,7 +110,7 @@ local math_wA = {
 		fmta([[\overline{<>}<>]],
       {
         d(1, function(_, snip)
-          cap = utils.select_raw(_, snip)
+          local cap = utils.select_raw(_, snip)
           return sn(nil, {i(1, cap)})
         end, {}),
         i(0)
@@ -115,7 +123,7 @@ local math_wA = {
       {
         c(1, { t "dot", t "ddot", t "dddot" }),
         d(2, function(_, snip)
-          cap = utils.select_raw(_, snip)
+          local cap = utils.select_raw(_, snip)
           return sn(nil, {i(1, cap)})
         end, {}),
         i(0)
@@ -176,7 +184,7 @@ local math_wA = {
         c(1,
           {
             fmta([[\limits_{<>}^{<>}]], {i(1, [[-\infty]]), i(2, [[\infty]])}),
-            t "" 
+            t ""
           }
         ), i(2), i(0),
       }
@@ -185,7 +193,7 @@ local math_wA = {
 	snippet(
 		{ trig = "part", dscr = "partial derivative (wA)" },
 		fmta(
-			[[ 
+			[[
     \frac{\partial <>}{\partial <>} <>
     ]],
 			{ i(1), i(2), i(0) }

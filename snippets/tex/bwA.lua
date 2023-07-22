@@ -5,6 +5,16 @@ A --> auto expand, snippetType="autosnippet".
 ]]
 
 --[[ Imports ]]
+local ls = require("luasnip")
+local s = ls.snippet
+local sn = ls.snippet_node
+local t = ls.text_node
+local i = ls.insert_node
+local c = ls.choice_node
+local extras = require("luasnip.extras")
+local rep = extras.rep
+local fmta = require("luasnip.extras.fmt").fmta
+
 local line_begin = require("luasnip.extras.conditions.expand").line_begin
 local make_condition = require("luasnip.extras.conditions").make_condition
 local conditions = require("user.snippets.tex.utils.conditions")

@@ -1,8 +1,20 @@
 --[[ Imports ]]
+local ls = require("luasnip")
+local s = ls.snippet
+local sn = ls.snippet_node
+local t = ls.text_node
+local i = ls.insert_node
+local c = ls.choice_node
+local d = ls.dynamic_node
+local r = ls.restore_node
+local extras = require("luasnip.extras")
+local rep = extras.rep
+local fmta = require("luasnip.extras.fmt").fmta
+
 local make_condition = require("luasnip.extras.conditions").make_condition
 local conditions = require("user.snippets.tex.utils.conditions")
 local in_text = make_condition(conditions.in_text)
-local in_math = make_condition(conditions.in_math)
+-- local in_math = make_condition(conditions.in_math)
 
 local M = {
 	s(
@@ -123,7 +135,7 @@ local M = {
       <>
     \end{tabular}]],
 			{ c(1, {
-        t(""), 
+        t(""),
         sn(nil, fmta([[|<>|<>|]], {i(1), i(2)}))
       }), i(2), }
 		),
@@ -132,7 +144,7 @@ local M = {
 
   -- Sections
 	s(
-		{ 
+		{
       trig = "sec",
       name = [[\section]],
       dscr = [[\sec/subsec/subsubsection]]
@@ -141,21 +153,21 @@ local M = {
 			[[ \<>tion<>{<>}<>
 
         <>]],
-			{ 
+			{
         c(1,
           {
             t "sec", t "subsec", t "subsubsec"
           }
         ),
-        c(2, 
+        c(2,
           {
             t "" , t "*"
           }
         ),
         i(3),
-        c(4, 
+        c(4,
           {
-            t "" , 
+            t "" ,
             sn(nil, fmta([[\label{<>:<>}]],
               { t "sec", i(1) }
             ))
