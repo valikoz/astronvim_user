@@ -1,4 +1,4 @@
-return { 
+return {
   -- override nvim-cmp plugin
   "hrsh7th/nvim-cmp",
   dependencies = {
@@ -13,7 +13,7 @@ return {
     local snip_status_ok, luasnip = pcall(require, "luasnip")
     if not snip_status_ok then return end
     -- modify the mapping part of the table
-    opts.mapping["<C-e>"] = cmp.mapping { 
+    opts.mapping["<C-e>"] = cmp.mapping {
       i = function()
       if cmp.visible() then
         cmp.abort()
@@ -64,7 +64,7 @@ return {
     end, { "i", "s" })
     opts.mapping["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
-        cmp.select_prev_item { behavior = cmp.SelectBehavior.Select } 
+        cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
       elseif luasnip.jumpable(-1) then
         luasnip.jump(-1)
       else
@@ -85,7 +85,7 @@ return {
       { name = "path", priority = 250 },
       { name = "nvim_lua", priority = 50 },
       { name = "omni", priority = 50 },
-    }    
+    }
     -- return the new table to be used
     return opts
   end,
