@@ -13,7 +13,7 @@ return {
     local snip_status_ok, luasnip = pcall(require, "luasnip")
     if not snip_status_ok then return end
     -- modify the mapping part of the table
-    opts.mapping["<C-e>"] = cmp.mapping {
+    opts.mapping["<C-,>"] = cmp.mapping {
       i = function()
       if cmp.visible() then
         cmp.abort()
