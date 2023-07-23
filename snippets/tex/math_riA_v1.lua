@@ -90,9 +90,9 @@ local M = {
   ),
   autosnip(
     {
-      trig="([^%s$]+)/",
+      trig="([\\%w_%^]+)/",
       dscr = "\\frac (riA)",
-      priority = 999, -- important: prio of `fraction (wA)` is 1000
+      priority = 997,
     },
     fmta(
       [[\frac{<>}{<>}<>]],

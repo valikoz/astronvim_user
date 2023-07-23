@@ -79,19 +79,19 @@ local math_wA = {
       }
     )
   ),
-	-- snippet(
-	-- 	{ trig = "vec", dscr = [[\vec (wA)]], priority = 998, docstring = [[\vec{}]] },
-	-- 	fmta([[\<>{<>}<>]],
- --      {
- --        f(function(_, snip) return snip.trigger end, {}),
- --        d(1, function(_, snip)
- --          local cap = utils.select_raw(_, snip)
- --          return sn(nil, {i(1, cap)})
- --        end, {}),
- --        i(0)
- --      }
- --    )
- --  ),
+	snippet(
+		{ trig = "vec", dscr = [[\vec (wA)]], priority = 998, docstring = [[\vec{}]] },
+		fmta([[\<>{<>}<>]],
+      {
+        f(function(_, snip) return snip.trigger end, {}),
+        d(1, function(_, snip)
+          local cap = utils.select_raw(_, snip)
+          return sn(nil, {i(1, cap)})
+        end, {}),
+        i(0)
+      }
+    )
+  ),
 	snippet(
 		{ trig = "hat", dscr = [[\hat (wA)]], docstring = [[\hat{}]] },
 		fmta([[\<>{<>}<>]],

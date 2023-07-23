@@ -33,7 +33,12 @@ local math_wrA = {
 	snippet(
 		{
 			trig = "(%b())/",
-      dscr = [[\frac{(...)} (parentheses) (wrA)]],
+			-- trig = [[left%p(.+)\right%p/]],
+			-- trig = [[left%((.+)\right%)/]],
+			-- trigEngine = "pattern",
+			-- trig = [[(.*)/]],
+			-- trigEngine = "vim",
+      dscr = [[\frac{...} (parentheses) (wrA)]],
       priority = 1000
 		},
 		fmta(
