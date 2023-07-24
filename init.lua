@@ -8,7 +8,9 @@ return {
       swapfile = false,
     },
     g = {
-      python3_host_prog = '~/AppData/Local/nvim/lua/user/env/Scripts/python',
+      mapleader = ",",
+      python3_host_prog = vim.fn.has "win64" == 1 and
+        '~/AppData/Local/nvim/lua/user/env/Scripts/python' or nil ,
       loaded_ruby_provider = 0,
       loaded_perl_provider = 0,
     },
