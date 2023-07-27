@@ -4,7 +4,6 @@ return {
     opt = {
       wrap = true, -- sets vim.opt.wrap
       swapfile = false,
-      cb = vim.fn.has "unix" == 1 and "" or "unnamedplus"
     },
     g = {
       -- mapleader = ",",
