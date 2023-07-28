@@ -8,7 +8,7 @@ return {
     g = {
       -- mapleader = ",",
       python3_host_prog = vim.fn.has "win64" == 1
-        and '~/AppData/Local/nvim/lua/user/env/Scripts/python' 
+        and '~/AppData/Local/nvim/lua/user/env/Scripts/python'
         or '~/.config/nvim/lua/user/env/bin/python',
       loaded_ruby_provider = 0,
       loaded_perl_provider = 0,
@@ -43,7 +43,7 @@ return {
           if vim.bo.filetype == "python" then
             vim.cmd "silent! write"
             utils.async_run({ "python3", vim.fn.expand "%:p" }, {
-              title = "Execute " .. filename 
+              title = "Execute " .. filename
             })
           else
             vim.notify("Cannot execute " .. filename, 3, { title = "Warning" } )
@@ -67,10 +67,57 @@ return {
       },
     },
   },
-  
+
   lsp = {
     servers = {
       "pyright",
+      -- "lua_ls",
     },
+    config = {
+      lua_ls = {
+        settings = {
+          Lua = {
+            hint = { enable = true, arrayIndex = "Disable" },
+          },
+        },
+      },
+      gopls = {
+        settings = {
+          gopls = {
+            gofumpt = true,
+          },
+        },
+        flags = {
+          debounce_text_changes = 150,
+        },
+      },
+      rust_analyzer = {
+        cmd = {
+          "rustup", "run", "stable", "rust-analyzer",
+        },
+      },
+    },
+    formatting = {
+      -- format_on_save = false, -- enable or disable automatic formatting on save
+      disabled = {
+        "lua_ls",
+        "rust_analyzer",
+      },
+      filter = function(client)
+        -- disable formatting for lua_ls
+        -- if client.name == "lua_ls" then
+        --   return false
+        -- end
+
+        -- only enable null-ls for javascript files
+        if vim.bo.filetype == "javascript" then
+          return client.name == "null-ls"
+        end
+
+        -- enable all other clients
+        return true
+      end,
+    },
+    mappings = {},
   },
 }
