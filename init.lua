@@ -72,6 +72,7 @@ return {
     servers = {
       "pyright",
       -- "lua_ls",
+      "rust_analyzer",
     },
     config = {
       lua_ls = {
