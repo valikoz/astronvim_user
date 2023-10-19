@@ -170,7 +170,7 @@ local math_wrA = {
     fmta([[
       \begin{cases}
         <>
-      .\end{cases}
+      \end{cases}
       ]],
 	  { d(1, utils.case) })
 	),

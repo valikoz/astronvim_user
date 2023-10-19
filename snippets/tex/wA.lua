@@ -46,20 +46,19 @@ local wA = {
     {
       trig = "dm",
       dscr = "display math \\[\\]",
-      docstring = [[ \[.\] ]]
+      docstring = [[ \[ \] ]]
     },
 	  fmta([[
       \[
         <>
-      .\]
-      <>]],
+      \]
+      ]],
 	    { d(1,
           function(_, snip)
             local res, env = {}, snip.env
             for _, val in ipairs(env.LS_SELECT_RAW) do table.insert(res, val) end
             return  sn(nil, { i(1, res) })
           end, {}),
-        i(0)
       }),
     { condition = in_text }
 	),

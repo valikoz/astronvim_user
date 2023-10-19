@@ -25,7 +25,7 @@ M.toautobs = {
     },
     {
       context = {
-        trig = "epsilon",
+        trig = "epsi",
         priority = 999
       }
     },
@@ -36,7 +36,8 @@ M.toautobs = {
     },
     {
       context = {
-        trig = "eta"
+        trig = "eta",
+        priority = 998
       }
     },
     {
@@ -98,7 +99,7 @@ M.toautobs = {
     },
     {
       context = {
-        trig = "[Uu]psilon"
+        trig = "[Uu]psi"
       }
     },
     {
@@ -114,7 +115,8 @@ M.toautobs = {
     },
     {
       context = {
-        trig = "[Pp]si"
+        trig = "[Pp]si",
+        priority = 998
       }
     },
     {
@@ -124,34 +126,41 @@ M.toautobs = {
     },
     {
       context = {
-        trig = "varepsilon"
+        trig = "var"
       }
     },
-    {
-      context = {
-        trig = "varphi"
-      }
-    },
-    {
-      context = {
-        trig = "vartheta"
-      }
-    },
-    {
-      context = {
-        trig = "varkappa"
-      }
-    }
+    -- {
+    --   context = {
+    --     trig = "varepsi"
+    --   }
+    -- },
+    -- {
+    --   context = {
+    --     trig = "varphi"
+    --   }
+    -- },
+    -- {
+    --   context = {
+    --     trig = "vartheta"
+    --   }
+    -- },
+    -- {
+    --   context = {
+    --     trig = "varkappa"
+    --   }
+    -- }
   },
   trigonometric = {
     {
       context = {
-        trig = "sin"
+        trig = "sin",
+        priority = 999,
       }
     },
     {
       context = {
-        trig = "cos"
+        trig = "cos",
+        priority = 999,
       }
     },
     {
@@ -161,7 +170,8 @@ M.toautobs = {
     },
     {
       context = {
-        trig = "tg"
+        trig = "tg",
+        priority = 999,
       }
     },
     {
@@ -171,12 +181,13 @@ M.toautobs = {
     },
     {
       context = {
-        trig = "ctg"
+        trig = "ctg",
+        priority = 999,
       }
     },
     {
       context = {
-        trig = "arcsin"
+        trig = "arcsin",
       }
     },
     {
@@ -218,12 +229,26 @@ M.toautobs = {
   hyperbolic = {
     {
       context = {
-        trig = "sh"
+        trig = "sh",
+        priority = 999,
       }
     },
     {
       context = {
-        trig = "cth"
+        trig = "ch",
+        priority = 999,
+      }
+    },
+    {
+      context = {
+        trig = "th",
+        priority = 999,
+      }
+    },
+    {
+      context = {
+        trig = "cth",
+        priority = 999,
       }
     },
     {
@@ -238,7 +263,7 @@ M.toautobs = {
     },
     {
       context = {
-        trig = "arth"
+        trig = "arth",
       }
     },
     {

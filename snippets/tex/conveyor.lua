@@ -30,6 +30,7 @@ for _, v in pairs(toautobs) do
         {
           trig = snip_args.context.trig,
           dscr = snip_args.context.dscr or "auto backslash",
+          priority = snip_args.context.priority or 1000,
           wordTrig = false,
           regTrig = regtrig,
         }, { condition = in_math * no_backslash }

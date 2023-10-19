@@ -1,6 +1,6 @@
 return {
   "rcarriga/nvim-notify",
-  enabled = false,
+  -- enabled = false,
   init = function() require("astronvim.utils").load_plugin_with_func("nvim-notify", vim, "notify") end,
   opts = {
     on_open = function(win)

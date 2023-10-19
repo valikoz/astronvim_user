@@ -118,6 +118,30 @@ local math_wA = {
     )
   ),
 	snippet(
+		{ trig = "underbrace", dscr = [[\underbrace (wA)]], docstring = [[\underbrace{}]] },
+		fmta([[\underbrace{<>}<>]],
+      {
+        d(1, function(_, snip)
+          local cap = utils.select_raw(_, snip)
+          return sn(nil, {i(1, cap)})
+        end, {}),
+        i(0)
+      }
+    )
+  ),
+	snippet(
+		{ trig = "overbrace", dscr = [[\overbrace (wA)]], docstring = [[\overbrace{}]] },
+		fmta([[\overbrace{<>}<>]],
+      {
+        d(1, function(_, snip)
+          local cap = utils.select_raw(_, snip)
+          return sn(nil, {i(1, cap)})
+        end, {}),
+        i(0)
+      }
+    )
+  ),
+	snippet(
 		{ trig = "dot", dscr = [[\dot (wA)]], docstring = [[\dot{}]] },
 		fmta([[\<>{<>}<>]],
       {
@@ -139,8 +163,8 @@ local math_wA = {
       {
         c(1,
           {
+            t(""),
             fmta([[_{<>}^{<>}]], {i(1, "i=0"), i(2, "\\infty")}),
-            t("")
           }
         ), i(0)
       }
@@ -148,19 +172,15 @@ local math_wA = {
 	),
 	snippet(
 		{ trig = "lim", dscr = [[\lim (wA)]] },
-		fmta(
-			[[
-    \lim_{<>} <>
-    ]],
-      {
-        c(1,
-          {
-            t(""),
-            i(nil, [[t\to\infty]]),
-          }
-        ), i(0)
-      }
-		)
+    {
+      c(1,
+        {
+		      fmta( [[ \lim_{<>} <> ]], { i(1), i(2) }),
+		      fmta( [[ \limits_{<>} ]], { i(1) }),
+		      fmta( [[ \limits_{<>}^{<>} ]], { i(1), i(2) }),
+        }
+      ),
+    }
 	),
   s(
     {
@@ -170,34 +190,57 @@ local math_wA = {
       snippetType = "autosnippet"
     },
     fmta([[ &<> <> \\ ]],
-      { c(1, {t("="), t("\\leq"), i(1)}), i(2) }
+      { c(1, {t "=" , t "\\leq" , i(1)}), i(2) }
     ),
     { condition = in_align }
   ),
 	snippet(
 		{ trig = "dint", dscr = [[\int (wA)]] },
-		fmta(
-			[[
-    \int<> <> \dd <>
-    ]],
-      {
-        c(1,
-          {
-            fmta([[\limits_{<>}^{<>}]], {i(1, [[-\infty]]), i(2, [[\infty]])}),
-            t ""
-          }
-        ), i(2), i(0),
-      }
-		)
+		{
+		  c(1,
+		    {
+		      fmta( [[\int <> \dd <>]], { i(1), i(2) }),
+		      fmta( [[\int\limits_{<>}^{<>} <> \dd <>]], {
+		        i(1), i(2), i(3), i(4)
+		      }),
+		      fmta( [[\int\limits_{S} <> \dd S]], { i(1) }),
+		      fmta( [[\int\limits_{V} <> \dd V]], { i(1) }),
+		    }
+		  )
+		}
 	),
 	snippet(
 		{ trig = "part", dscr = "partial derivative (wA)" },
-		fmta(
-			[[
-    \frac{\partial <>}{\partial <>} <>
-    ]],
-			{ i(1), i(2), i(0) }
-		)
+		{
+		  c(1,
+		    {
+		      fmta( [[\frac{\partial <>}{\partial <>} <>]],
+			      { i(1), i(2), i(3) }
+		      ),
+		      fmta( [[\frac{\partial <>}{\partial t} <>]],
+			      { i(1), i(2) }
+		      ),
+		      fmta( [[\frac{\partial^2 <>}{\partial <>^2} <>]],
+			      { i(1), i(2), i(3) }
+		      ),
+		    }
+		  ),
+		}
+	),
+	snippet(
+		{ trig = "ddt", dscr = "time derivative (wA)" },
+		{
+		  c(1,
+		    {
+		      fmta( [[ \frac{\dd <>}{\dd t} <> ]],
+			      { i(1), i(0) }
+		      ),
+		      fmta( [[ \frac{\dd^2 <>}{\dd t^2} <> ]],
+			      { i(1), i(0) }
+		      ),
+		    }
+		  ),
+		}
 	),
 }
 
