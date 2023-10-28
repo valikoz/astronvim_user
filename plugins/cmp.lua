@@ -2,7 +2,7 @@ return {
   -- override nvim-cmp plugin
   "hrsh7th/nvim-cmp",
   dependencies = {
-    { "hrsh7th/cmp-omni", enabled = vim.fn.has "win64" == 1, ft = "tex", },
+    -- { "hrsh7th/cmp-omni", enabled = vim.fn.has "win64" == 1, ft = "tex", },
     { "hrsh7th/cmp-nvim-lua", ft = "lua", },
   },
   -- override the options table that is used in the `require("cmp").setup()` call
@@ -54,10 +54,8 @@ return {
       end
     end, { 'i', 's' })
     opts.mapping["<Tab>"] = cmp.mapping(function(fallback)
-      if not vim.bo.filetype == "tex" then
-        if cmp.visible() then
-          cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
-        end
+      if cmp.visible() then
+        cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
       elseif luasnip.expand_or_jumpable() then
         luasnip.expand_or_jump()
       else
@@ -86,7 +84,7 @@ return {
       },
       { name = "path",     priority = 250 },
       { name = "nvim_lua", priority = 50 },
-      { name = "omni",     priority = 50 },
+      -- { name = "omni",     priority = 50 },
     }
     -- return the new table to be used
     return opts
