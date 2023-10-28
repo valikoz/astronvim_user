@@ -36,14 +36,5 @@ return {
     --   end,
     --   desc = "Execute lua file",
     -- },
-    -- [",t"] = {
-    --   function()
-    --     if vim.g.onedark_config.transparent then
-    --       require("onedark").set_options("transparent", false)
-    --     else require("onedark").set_options("transparent", true)
-    --     end
-    --     vim.api.nvim_command('colorscheme onedark')
-    --   end
-    -- }
   },
 }
