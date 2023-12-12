@@ -78,10 +78,10 @@ local math_iA = {
       docstring = [[\sqrt{}]]
     },
     fmta(
-      [[\sqrt<>{<>}<>]],
+      [[\sqrt{<>}<>]],
 	    {
-        c(1, { t "", sn(nil, fmta("[<>]", { i(1, "3") })) }),
-        d(2,
+        -- c(1, { t "", sn(nil, fmta("[<>]", { i(1, "3") })) }),
+        d(1,
           function(_, snip)
             local res, env = {}, snip.env
             for _, val in ipairs(env.LS_SELECT_RAW) do table.insert(res, val) end
@@ -153,6 +153,13 @@ local math_iA = {
       dscr = [[greater or equal >= (iA)]]
     },
     { t([[\geq]]) }
+  ),
+  snippet(
+    {
+      trig = "===",
+      dscr = [[equivalent (iA)]]
+    },
+    { t([[\equiv]]) }
   ),
   snippet(
     {

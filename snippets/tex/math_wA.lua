@@ -51,7 +51,7 @@ local math_wA = {
                           r(1, '1'), i(2)
                         }
                       )
-                    )
+                    ),
                   }
                 )
               }
@@ -189,7 +189,7 @@ local math_wA = {
       dscr = 'alignment for = in align environment (wA)',
       snippetType = "autosnippet"
     },
-    fmta([[ &<> <> \\ ]],
+    fmta([[&<> <>]],
       { c(1, {t "=" , t "\\leq" , i(1)}), i(2) }
     ),
     { condition = in_align }
@@ -199,12 +199,12 @@ local math_wA = {
 		{
 		  c(1,
 		    {
-		      fmta( [[\int <> \dd <>]], { i(1), i(2) }),
-		      fmta( [[\int\limits_{<>}^{<>} <> \dd <>]], {
+		      fmta( [[\int <> \, d <>]], { i(1), i(2) }),
+		      fmta( [[\int\limits_{<>}^{<>} <> \, d <>]], {
 		        i(1), i(2), i(3), i(4)
 		      }),
-		      fmta( [[\int\limits_{S} <> \dd S]], { i(1) }),
-		      fmta( [[\int\limits_{V} <> \dd V]], { i(1) }),
+		      fmta( [[\int\limits_{S} <> \, d S]], { i(1) }),
+		      fmta( [[\int\limits_{V} <> \, d V]], { i(1) }),
 		    }
 		  )
 		}
@@ -217,11 +217,11 @@ local math_wA = {
 		      fmta( [[\frac{\partial <>}{\partial <>} <>]],
 			      { i(1), i(2), i(3) }
 		      ),
-		      fmta( [[\frac{\partial <>}{\partial t} <>]],
-			      { i(1), i(2) }
-		      ),
 		      fmta( [[\frac{\partial^2 <>}{\partial <>^2} <>]],
 			      { i(1), i(2), i(3) }
+		      ),
+		      fmta( [[\frac{\partial <>}{\partial t} <>]],
+			      { i(1), i(2) }
 		      ),
 		    }
 		  ),
@@ -232,11 +232,11 @@ local math_wA = {
 		{
 		  c(1,
 		    {
-		      fmta( [[ \frac{\dd <>}{\dd t} <> ]],
-			      { i(1), i(0) }
+		      fmta( [[ \frac{d <>}{d <>} <>]],
+			      { i(1), i(2, "t"), i(0) }
 		      ),
-		      fmta( [[ \frac{\dd^2 <>}{\dd t^2} <> ]],
-			      { i(1), i(0) }
+		      fmta( [[ \frac{d^2 <>}{d <>} <>]],
+			      { i(1), i(2, "t^2"), i(0) }
 		      ),
 		    }
 		  ),

@@ -13,8 +13,11 @@ local fmta = require("luasnip.extras.fmt").fmta
 
 local make_condition = require("luasnip.extras.conditions").make_condition
 local conditions = require("user.snippets.tex.utils.conditions")
+local no_backslash = conditions.no_backslash
 local in_text = make_condition(conditions.in_text)
 -- local in_math = make_condition(conditions.in_math)
+local utils = require("user.snippets.tex.utils")
+
 
 local M = {
 	s(
@@ -44,8 +47,8 @@ local M = {
 	      ["key"] = i(1)
 	      }
       }
-    ),
-    { show_condition = in_text }
+    )
+    -- { show_condition = in_text }
   ),
 	s(
 		{ trig = "ref", name = "references", dscr = "Different reference styles" },
@@ -147,36 +150,38 @@ local M = {
 		{
       trig = "sec",
       name = [[\section]],
-      dscr = [[\sec/subsec/subsubsection]]
+      dscr = [[\sec/subsec/subsubsection]],
+      docstring = "\\section{}"
     },
 		fmta(
-			[[ \<>tion<>{<>}<>
-
-        <>]],
+			[[ <>{<>}<>]],
 			{
         c(1,
           {
-            t "sec", t "subsec", t "subsubsec"
+            t "\\section", t "\\subsection", t "\\subsubsection"
           }
         ),
-        c(2,
-          {
-            t "" , t "*"
-          }
-        ),
-        i(3),
-        c(4,
-          {
-            t "" ,
-            sn(nil, fmta([[\label{<>:<>}]],
-              { t "sec", i(1) }
-            ))
-          }
-        ),
+        d(2, function(_, snip)
+          local cap = utils.select_raw(_, snip)
+          return sn(nil, {i(1, cap)})
+        end, {}),
+        -- c(2,
+        --   {
+        --     t "" , t "*"
+        --   }
+        -- ),
+        -- c(4,
+        --   {
+        --     t "" ,
+        --     sn(nil, fmta([[\label{<>:<>}]],
+        --       { t "sec", i(1) }
+        --     ))
+        --   }
+        -- ),
         i(0)
       }
     ),
-    { show_condition = in_text }
+    { show_condition = in_text * no_backslash }
 	),
 }
 

@@ -75,6 +75,19 @@ local M = {
   ),
   autosnip(
     {
+      trig = "(\\?%a+)tild",
+      dscr = "\\widetilde (riA)",
+    },
+    fmta(
+      [[\widetilde{<>}<>]],
+      {
+        f(function(_, snip) return snip.captures[1] end, {}),
+        i(0),
+      }
+    )
+  ),
+  autosnip(
+    {
       trig = "(\\?%a+)dot",
       dscr = "\\dot (riA)",
     },
@@ -101,16 +114,17 @@ local M = {
           function (_, snip)
             return sn(nil,
             {
-              c(1,
-                {
-                  i(1, snip.captures[1]),
-                  sn(nil, fmta([[(<>)<>]], { i(1, snip.captures[1]), i(2) })),
-                  sn(nil, fmta([[\left(<>\right)<>]],
-                      { i(1, snip.captures[1]), i(2) }
-                    )
-                  )
-                }
-              )
+              t(snip.captures[1])
+              -- c(1,
+              --   {
+              --     t(snip.captures[1]),
+              --     sn(nil, fmta([[(<>)<>]], { i(1, snip.captures[1]), i(2) })),
+              --     sn(nil, fmta([[\left(<>\right)<>]],
+              --         { i(1, snip.captures[1]), i(2) }
+              --       )
+              --     )
+              --   }
+              -- )
             })
           end
         ),

@@ -51,7 +51,7 @@ local bwA = {
 	  fmta([[
       \begin{align<>}<>
         <>
-      .\end{align<>}
+      \end{align<>}
       ]],
       { c(1, {t("*"), t("")}),
         c(2, {
@@ -78,7 +78,7 @@ local bwA = {
 	  fmta([[
       \begin{equation<>}<>
         <>
-      .\end{equation<>}
+      \end{equation<>}
       ]],
 	    {
         c(1, { t("*"), t("") }),
@@ -99,7 +99,7 @@ local bwA = {
 		fmta(
 			[[
       \begin{enumerate}<>
-        \item <>
+      \item <>
       \end{enumerate}
       ]],
 			{

@@ -26,28 +26,53 @@ local snippet = require("luasnip").extend_decorator.apply(s,
 local math_w = {
   snippet(
     {
-      trig = "([bBpvV])mat(%d+)(%d+)([ar])",
-      name = "[bBpvV]matrix",
-      dscr = "repeat autosnippet for cmp",
+      trig = "vec2",
+      name = [[pmatrix]],
+      dscr = [[\begin{pmatrix}...\end{pmatrix} () vector (w)]]
     },
-    {
-      i(1, "[bBpvV]"), t("mat"), i(2, "%d"), i(3, "%d"),
-      i(4, "[ar]")
-    },
-    {
-      show_condition = in_math
-    }
+    fmta([[
+      \begin{pmatrix} <> \\ <> \end{pmatrix}
+      ]],
+      { i(1, 'x'), i(2, 'y') }
+    ),
+    { show_condition = in_math }
   ),
   snippet(
     {
-      trig = "Vec",
+      trig = "vec3",
       name = [[pmatrix]],
-      dscr = [[\begin{pmatrix}...\end{pmatrix} column vector (w)]]
+      dscr = [[\begin{pmatrix}...\end{pmatrix} () vector (w)]]
     },
     fmta([[
-      \begin{pmatrix} <>_<> \\ \vdots \\ <>_<> \end{pmatrix}
+      \begin{pmatrix} <> \\ <> \\ <> \end{pmatrix}
       ]],
-      { i(1, 'x'), i(2, '1'), rep(1), i(0, 'n') }
+      { i(1, 'x'), i(2, 'y'), i(0, 'z') }
+    ),
+    { show_condition = in_math }
+  ),
+  snippet(
+    {
+      trig = "zin2",
+      name = [[bmatrix]],
+      dscr = [[\begin{bmatrix}...\end{bmatrix} [] vector (w)]]
+    },
+    fmta([[
+      \begin{bmatrix} <> \\ <> \end{bmatrix}
+      ]],
+      { i(1, 'x'), i(2, 'y') }
+    ),
+    { show_condition = in_math }
+  ),
+  snippet(
+    {
+      trig = "zin3",
+      name = [[bmatrix]],
+      dscr = [[\begin{bmatrix}...\end{bmatrix} [] vector (w)]]
+    },
+    fmta([[
+      \begin{bmatrix} <> \\ <> \\ <> \end{bmatrix}
+      ]],
+      { i(1, 'x'), i(2, 'y'), i(3, 'z') }
     ),
     { show_condition = in_math }
   ),

@@ -41,40 +41,36 @@ M.mat = function(_, snip)
 			table.insert(nodes, r(ins_indx, tostring(j) .. "x" .. tostring(k), i(1)))
 			ins_indx = ins_indx + 1
 		end
-		table.insert(nodes, t({ "\\\\", "" }))
+		table.insert(nodes, t({ "\t\\\\", "" }))
 	end
 	-- fix last node.
-	nodes[#nodes] = t("\\\\")
+	-- nodes[#nodes] = t("\\\\")
+	nodes[#nodes] = nil
 	return sn(nil, nodes)
 end
 
 M.case = function(_, snip)
 	local rows = tonumber(snip.captures[1]) or 2 -- default option 2 for cases
-	local cols = 2 -- fix to 2 cols
 	local nodes = {}
 	local ins_indx = 1
 	for j = 1, rows do
 		table.insert(nodes, r(ins_indx, tostring(j) .. "x1", i(1)))
 		ins_indx = ins_indx + 1
-		for k = 2, cols do
-			table.insert(nodes, t(" & "))
-			table.insert(nodes, r(ins_indx, tostring(j) .. "x" .. tostring(k), i(1)))
-			ins_indx = ins_indx + 1
-		end
-		table.insert(nodes, t({ "\\\\", "" }))
+		table.insert(nodes, t({ "\t\\\\", "" }))
 	end
 	-- fix last node.
-	nodes[#nodes] = t("\\\\")
+	-- nodes[#nodes] = t("\\\\")
+	nodes[#nodes] = nil
 	return sn(nil, nodes)
 end
 
 ---@return function (snippet node) 
---as many `\dd` as multiplicity of integral
+--as many `d` as multiplicity of integral
 M.integrals = function(_, snip)
 	local vars = tonumber(snip.captures[1])
 	local nodes = {}
 	for j = 1, vars do
-		table.insert(nodes, t(" \\dd "))
+		table.insert(nodes, t(" d "))
 		table.insert(nodes, r(j, "var" .. tostring(j), i(1)))
 	end
 	return sn(nil, nodes)

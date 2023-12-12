@@ -239,18 +239,18 @@ M.toautobs = {
         priority = 999,
       }
     },
-    {
-      context = {
-        trig = "th",
-        priority = 999,
-      }
-    },
-    {
-      context = {
-        trig = "cth",
-        priority = 999,
-      }
-    },
+    -- {
+    --   context = {
+    --     trig = "th",
+    --     priority = 999,
+    --   }
+    -- },
+    -- {
+    --   context = {
+    --     trig = "cth",
+    --     priority = 999,
+    --   }
+    -- },
     {
       context = {
         trig = "arsh"
@@ -313,7 +313,8 @@ M.toautobs = {
     {
       context = {
         trig = "ll",
-        dscr = [[much less << (relation)]]
+        dscr = [[much less << (relation)]],
+        priority = 1
       }
     },
     {
@@ -342,6 +343,12 @@ M.toautobs = {
       context = {
         trig = "nabla",
         dscr = [[\nabla]]
+      }
+    },
+    {
+      context = {
+        trig = "ell",
+        dscr = [[\ell]]
       }
     }
   }

@@ -87,35 +87,74 @@ local math_wrA = {
 			}
 		)
 	),
+	snippet(
+		{
+      trig = "ri(%a)",
+      name = "right",
+      dscr = [[\right.. delimiter]],
+      docTrig = "rip"
+    },
+		fmta(
+			[[
+      \right<><>
+      ]],
+			{
+				f(function(_, snip)
+					cap = snip.captures[1]
+					if symbols.delimiters[cap] == nil then
+						cap = "p"
+					end
+					return symbols.delimiters[cap][2]
+				end),
+				i(0),
+			}
+		)
+	),
+	snippet(
+		{
+      trig = "le(%a)",
+      name = "left",
+      dscr = [[\left.. delimiter]],
+      docTrig = "lep"
+    },
+		fmta(
+			[[
+      \left<> <>
+      ]],
+			{
+				f(function(_, snip)
+					local cap = snip.captures[1]
+					if symbols.delimiters[cap] == nil then
+						cap = "p"
+					end -- set default to parentheses
+					return symbols.delimiters[cap][1]
+				end),
+				i(0),
+			}
+		)
+	),
   snippet(
     {
-      trig = "([bBpvV])mat(%d+)(%d+)([ar])",
+      trig = "([bBpvV])mat(%d+)(%d+)",
       dscr = [[\begin{_matrix}...\end{_matrix} (wrA)]],
-      docTrig = "bmat33r"
+      docTrig = "bmat22r",
+      docstring = "",
     },
 	  fmta([[
-      \begin{<>}<>
+      \begin{<>}
       <>
       \end{<>}]],
 	    {
         f(function(_, snip)
           return snip.captures[1] .. "matrix"
         end),
-        f(function(_, snip)
-          if snip.captures[4] == "a" then
-            local out = string.rep("c", tonumber(snip.captures[3]) - 1)
-            return "[" .. out .. "|c]"
-          end
-          return ""
-      end),
-      d(1, utils.mat),
-      f(function(_, snip)
-          return snip.captures[1] .. "matrix"
-      end)
+      	d(1, utils.mat),
+      	f(function(_, snip)
+          	return snip.captures[1] .. "matrix"
+      	end)
       }
     )
 	),
-
 	snippet(
 		{
       trig = "([clvda])%.",
@@ -130,7 +169,7 @@ local math_wrA = {
       trig = "(%d)int",
       dscr = "multi integrals (wrA)",
       docTrig = "1int",
-      docstring = [[ \int_{} \dd ]]
+      docstring = [[ \int_{} d ]]
     },
 		fmta(
 			[[<> <> <> <>]],
@@ -169,7 +208,7 @@ local math_wrA = {
     },
     fmta([[
       \begin{cases}
-        <>
+      <>
       \end{cases}
       ]],
 	  { d(1, utils.case) })
