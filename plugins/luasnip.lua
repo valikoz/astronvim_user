@@ -11,7 +11,9 @@ return {
       -- exclude = { vim.fn.has "unix" == 1 and "tex" }
     }
     require("luasnip.loaders.from_vscode").lazy_load {
-      include = { "lua", "python", "rust", "go", "cpp" }
+      include = { "lua", "python", "rust", "go", "cpp",
+        "html", "css", "javascript"
+      }
     }
   end,
 }
