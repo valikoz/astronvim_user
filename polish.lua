@@ -1,6 +1,5 @@
 local utils = require "user.utils"
 
-
 -- Remove whitespace
 vim.api.nvim_create_user_command('WhiteSpaceClean', '%s/\\s\\+$//e|nohlsearch', {})
 -- Edit snippets
@@ -11,8 +10,6 @@ end, { bang = true, desc = "Edit snippets" })
 vim.api.nvim_create_user_command("LuaSnipInfo", function()
   require("luasnip.extras.snippet_list").open()
 end, { bang = true, desc = "Open snippets list" })
--- create an augroup to easily manage autocommands
-vim.api.nvim_create_augroup("autohidetabline", { clear = true })
 -- Execute python files
 vim.api.nvim_create_user_command("ExecutePy", function()
   local filename = vim.fn.expand "%:t"
@@ -25,14 +22,13 @@ vim.api.nvim_create_user_command("ExecutePy", function()
     vim.notify("Cannot execute " .. filename, 3, { title = "Warning" } )
     return nil
   end
-end,{ bang = true, desc = "Execute python files" })
+end,{ bang = true, desc = "Execute python file" })
 -- Start live-server
-vim.api.nvim_create_user_command("Preview", function()
-  -- local filename = vim.fn.expand "%:t"
-  -- os.execute(string.format("live-server %q", vim.fn.expand "%:."))
-  utils.async_run({ "live-server", vim.fn.expand "%:p:h" }, {})
-end,{ bang = true, desc = "Start live-server" })
-
+vim.api.nvim_create_user_command("LiveServer", function()
+  utils.async_run({ "live-server", vim.fn.expand "%:p:h", "--browser=explorer.exe" }, {})
+end,{ bang = true, desc = "initiation the live-server from the corresponding file folder" })
+-- create an augroup to easily manage autocommands
+-- vim.api.nvim_create_augroup("autohidetabline", { clear = true })
 -- create a new autocmd on the "User" event
 -- vim.api.nvim_create_autocmd("User", {
 --   desc = "Hide tabline when only one buffer and one tab", -- nice description
