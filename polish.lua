@@ -23,10 +23,6 @@ vim.api.nvim_create_user_command("ExecutePy", function()
     return nil
   end
 end,{ bang = true, desc = "Execute python file" })
--- Start live-server
-vim.api.nvim_create_user_command("LiveServer", function()
-  utils.async_run({ "live-server", vim.fn.expand "%:p:h", "--browser=explorer.exe" }, {})
-end,{ bang = true, desc = "initiation the live-server from the corresponding file folder" })
 -- create an augroup to easily manage autocommands
 -- vim.api.nvim_create_augroup("autohidetabline", { clear = true })
 -- create a new autocmd on the "User" event
