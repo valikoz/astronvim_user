@@ -23,6 +23,24 @@ vim.api.nvim_create_user_command("ExecutePy", function()
     return nil
   end
 end,{ bang = true, desc = "Execute python file" })
+-- Copy content from unnamed register " to clipboard
+vim.api.nvim_create_user_command("CopyToClipboard", function()
+  -- Get the contents of the " register
+  local register_content = vim.fn.getreg('"')
+
+  -- Escape special characters in the register content
+  local escaped_content = vim.fn.shellescape(register_content)
+
+  -- Construct the command to copy to clipboard using clip.exe
+  local command = string.format('echo %s | clip.exe', escaped_content)
+
+  -- Execute the command
+  local success = os.execute(command)
+
+  if not success then
+    print('Error: Unable to copy to clipboard.')
+  end
+end, { bang = true, desc = "Copy content to clipboard" })
 -- create an augroup to easily manage autocommands
 -- vim.api.nvim_create_augroup("autohidetabline", { clear = true })
 -- create a new autocmd on the "User" event
