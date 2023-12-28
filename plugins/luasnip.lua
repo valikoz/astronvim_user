@@ -12,7 +12,7 @@ return {
     }
     require("luasnip.loaders.from_vscode").lazy_load {
       include = { "lua", "python", "rust", "go", "cpp",
-        "html", "css", "javascript"
+        "html", "css", "javascript", "all"
       }
     }
   end,
