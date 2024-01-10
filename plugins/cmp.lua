@@ -40,8 +40,8 @@ return {
     opts.mapping['<Right>'] = cmp.mapping(function(fallback)
       if luasnip.jumpable(1) then
         luasnip.jump(1)
-      elseif luasnip.expandable() then
-        luasnip.expand()
+      -- elseif luasnip.expandable() then
+      --   luasnip.expand()
       else
         fallback()
       end
@@ -56,8 +56,8 @@ return {
     opts.mapping["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
-      elseif luasnip.expand_or_jumpable() then
-        luasnip.expand_or_jump()
+      -- elseif luasnip.expand_or_jumpable() then
+      --   luasnip.expand_or_jump()
       else
         fallback()
       end
@@ -65,8 +65,8 @@ return {
     opts.mapping["<S-Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_prev_item { behavior = cmp.SelectBehavior.Select }
-      elseif luasnip.jumpable(-1) then
-        luasnip.jump(-1)
+      -- elseif luasnip.jumpable(-1) then
+      --  luasnip.jump(-1)
       else
         fallback()
       end
