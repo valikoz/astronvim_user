@@ -4,6 +4,7 @@ return {
     require("luasnip").config.setup {
       enable_autosnippets = true,
       store_selection_keys = "<Tab>",
+      history = false,
     }
     -- load snippets paths
     require("luasnip.loaders.from_lua").lazy_load {
