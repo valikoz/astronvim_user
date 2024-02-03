@@ -22,7 +22,7 @@ nvim
 #### Install User Settings
 
 ```bash
-git clone https://github.com/Valikoz/astonvim_user.git ~/.config/nvim/lua/user
+git clone https://github.com/Valikoz/astronvim_user.git ~/.config/nvim/lua/user
 ```
 
 ### Windows (Powershell)
