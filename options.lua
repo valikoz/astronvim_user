@@ -2,6 +2,7 @@ return {
   opt = {
     wrap = true, -- sets vim.opt.wrap
     swapfile = false,
+    scrolloff = 5,
   },
   g = {
     python3_host_prog = 0,
