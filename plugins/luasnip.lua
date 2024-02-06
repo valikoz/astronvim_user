@@ -1,5 +1,11 @@
 return {
   "L3MON4D3/LuaSnip",
+  dependencies = {
+    {
+      "rafamadriz/friendly-snippets",
+      enabled = false,
+    }
+  },
   config = function()
     require("luasnip").config.setup {
       enable_autosnippets = true,
@@ -8,11 +14,10 @@ return {
     }
     -- load snippets paths
     require("luasnip.loaders.from_lua").lazy_load {
-      paths = { "./lua/user/snippets" },
-      -- exclude = { vim.fn.has "unix" == 1 and "tex" }
+      paths = { "./lua/user/snippets/lua" },
     }
     require("luasnip.loaders.from_vscode").lazy_load {
-      include = {}
+      paths = { "./lua/user/snippets/vscode" },
     }
   end,
 }
