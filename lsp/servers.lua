@@ -1,6 +1,6 @@
 return {
-  "pyright",
+  -- "pyright",
   -- "lua_ls",
-  vim.fn.has "unix" == 1 and "rust_analyzer" or nil,
-  "tsserver",
+  -- "rust_analyzer",
+  -- "tsserver",
 }
