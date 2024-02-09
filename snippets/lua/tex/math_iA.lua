@@ -16,7 +16,7 @@ local r = ls.restore_node
 local fmta = require("luasnip.extras.fmt").fmta
 
 local make_condition = require("luasnip.extras.conditions").make_condition
-local conditions = require("user.snippets.tex.utils.conditions")
+local conditions = require("user.snippets.lua.tex.utils.conditions")
 local in_math = make_condition(conditions.in_math)
 local snippet = require("luasnip").extend_decorator.apply(s,
   {

@@ -17,7 +17,7 @@ local r = ls.restore_node
 local fmta = require("luasnip.extras.fmt").fmta
 
 local make_condition = require("luasnip.extras.conditions").make_condition
-local conditions = require("user.snippets.tex.utils.conditions")
+local conditions = require("user.snippets.lua.tex.utils.conditions")
 local in_math = make_condition(conditions.in_math)
 local snippet = require('luasnip').extend_decorator.apply(s,
   {
@@ -26,8 +26,8 @@ local snippet = require('luasnip').extend_decorator.apply(s,
   },
   { condition = in_math, }
 )
-local utils = require('user.snippets.tex.utils')
-local symbols = require('user.snippets.tex.utils.symbols')
+local utils = require('user.snippets.lua.tex.utils')
+local symbols = require('user.snippets.lua.tex.utils.symbols')
 
 local math_wrA = {
 	snippet(
@@ -77,7 +77,7 @@ local math_wrA = {
 				end),
 				d(1, utils.get_visual),
 				f(function(_, snip)
-					cap = snip.captures[1]
+					local cap = snip.captures[1]
 					if symbols.delimiters[cap] == nil then
 						cap = "p"
 					end
@@ -100,7 +100,7 @@ local math_wrA = {
       ]],
 			{
 				f(function(_, snip)
-					cap = snip.captures[1]
+					local cap = snip.captures[1]
 					if symbols.delimiters[cap] == nil then
 						cap = "p"
 					end

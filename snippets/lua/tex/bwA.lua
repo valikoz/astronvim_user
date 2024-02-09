@@ -17,7 +17,7 @@ local fmta = require("luasnip.extras.fmt").fmta
 
 local line_begin = require("luasnip.extras.conditions.expand").line_begin
 local make_condition = require("luasnip.extras.conditions").make_condition
-local conditions = require("user.snippets.tex.utils.conditions")
+local conditions = require("user.snippets.lua.tex.utils.conditions")
 local in_bullets = make_condition(conditions.in_bullets)
 local autosnip = require("luasnip").extend_decorator.apply(s,
   { snippetType = "autosnippet" },
