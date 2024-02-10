@@ -1,12 +1,12 @@
 --[[ Imports ]]
 local ls = require("luasnip")
 local make_condition = require("luasnip.extras.conditions").make_condition
-local conditions = require("user.snippets.tex.utils.conditions")
+local conditions = require("user.snippets.lua.tex.utils.conditions")
 local in_math = make_condition(conditions.in_math)
 local no_backslash = conditions.no_backslash
-local utils = require('user.snippets.tex.utils')
-local toautobs = require('user.snippets.tex.utils.symbols').toautobs
-local fortips = require('user.snippets.tex.utils.symbols').fortips
+local utils = require('user.snippets.lua.tex.utils')
+local toautobs = require('user.snippets.lua.tex.utils.symbols').toautobs
+local fortips = require('user.snippets.lua.tex.utils.symbols').fortips
 
 local M = {}
 

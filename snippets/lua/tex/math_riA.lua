@@ -22,9 +22,9 @@ local fmta = require("luasnip.extras.fmt").fmta
 local postfix = require("luasnip.extras.postfix").postfix
 
 local make_condition = require("luasnip.extras.conditions").make_condition
-local conditions = require("user.snippets.tex.utils.conditions")
+local conditions = require("user.snippets.lua.tex.utils.conditions")
 local in_math = make_condition(conditions.in_math)
-local context_extend = require("user.snippets.tex.utils").context_extend
+local context_extend = require("user.snippets.lua.tex.utils").context_extend
 require("luasnip").extend_decorator.register(postfix,
   { arg_indx = 1, extend = context_extend },
   { arg_indx = 3 }

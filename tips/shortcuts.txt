@@ -1,6 +1,6 @@
 *shortcuts.txt*
 
-			 USEFUL VIM/NEOVIM SHORTCUTS
+			              USEFUL VIM/NEOVIM SHORTCUTS
 
 
 Help on some vim shortcuts					*shortcuts*
@@ -182,6 +182,7 @@ TELESCOPE PROMPT
 						  *telescope-prompt-shortcuts*
 
 <C-t> Go to a file in a new tab
+<C-q> Put all items into quick-fix list
 
 ==============================================================================
 TERMINAL

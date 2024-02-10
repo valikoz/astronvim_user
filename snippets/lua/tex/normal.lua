@@ -12,11 +12,11 @@ local rep = extras.rep
 local fmta = require("luasnip.extras.fmt").fmta
 
 local make_condition = require("luasnip.extras.conditions").make_condition
-local conditions = require("user.snippets.tex.utils.conditions")
+local conditions = require("user.snippets.lua.tex.utils.conditions")
 local no_backslash = conditions.no_backslash
 local in_text = make_condition(conditions.in_text)
 -- local in_math = make_condition(conditions.in_math)
-local utils = require("user.snippets.tex.utils")
+local utils = require("user.snippets.lua.tex.utils")
 
 
 local M = {
@@ -128,8 +128,7 @@ local M = {
       { show_condition = in_text }
 		)
 	),
-  --[[ TODO:
-  make reg snippet for tabular environment ]]
+  --[[ TODO: make reg snippet for tabular environment ]]
 	s(
 		{ trig="tabular", dscr="tabular environment" },
 		fmta(
