@@ -128,8 +128,7 @@ local M = {
       { show_condition = in_text }
 		)
 	),
-  --[[ TODO:
-  make reg snippet for tabular environment ]]
+  --[[ TODO: make reg snippet for tabular environment ]]
 	s(
 		{ trig="tabular", dscr="tabular environment" },
 		fmta(
