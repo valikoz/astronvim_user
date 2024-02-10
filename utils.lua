@@ -1,5 +1,6 @@
 local M = {}
 
+
 ---@param cmd table
 ---@param opts table is a table with these keys:
   -- title: (string or nil) Notification's title.
@@ -27,19 +28,5 @@ function M.async_run(cmd, opts)
   })
 end
 
-function M.toggle_qf()
-  local qf_exists = false
-  for _, win in pairs(vim.fn.getwininfo()) do
-    if win["quickfix"] == 1 then
-      qf_exists = true
-      break
-    end
-  end
-  if qf_exists then
-    vim.cmd.cclose()
-  elseif not vim.tbl_isempty(vim.fn.getqflist()) then
-    vim.cmd.copen()
-  end
-end
 
 return M
