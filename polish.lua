@@ -31,8 +31,14 @@ vim.api.nvim_create_user_command("CopyToClipboard", function()
   -- Escape special characters in the register content
   local escaped_content = vim.fn.shellescape(register_content)
 
-  -- Construct the command to copy to clipboard using clip.exe
-  local command = string.format('echo %s | clip.exe', escaped_content)
+  local command = nil
+
+  if vim.fn.has "win64" then
+    -- Construct the command to copy to clipboard using clip.exe
+    command = string.format('echo %s | clip.exe', escaped_content)
+  elseif vim.fn.has "macos" then
+    command = string.format("echo %s | pbcopy")
+  end
 
   -- Execute the command
   local success = os.execute(command)
