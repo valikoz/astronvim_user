@@ -4,7 +4,11 @@ return {
     {
       "rafamadriz/friendly-snippets",
       enabled = false,
-    }
+    },
+    {
+      "valikoz/friendly-snippets",
+      name = "friendly-snippets-forked",
+    },
   },
   config = function()
     require("luasnip").config.setup {
@@ -17,7 +21,9 @@ return {
       paths = { "./lua/user/snippets/lua" },
     }
     require("luasnip.loaders.from_vscode").lazy_load {
-      paths = { "./lua/user/snippets/vscode" },
+      exclude = {
+        "tex",
+      },
     }
   end,
 }
