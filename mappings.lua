@@ -1,6 +1,4 @@
-local utils = require "user.utils"
 local astro_utils = require "astronvim.utils"
-
 
 return {
   n = {
@@ -23,7 +21,6 @@ return {
     ga = { "<Plug>(EasyAlign)", desc = "Easy Align" },
     -- buffer switching
     ["<Tab>"] = {
-      --- require
       function()
         if #vim.t.bufs > 1 then
           require("telescope.builtin").buffers { sort_mru = true, ignore_current_buffer = true }
@@ -69,8 +66,14 @@ return {
     -- Easy-Align
     ga = { "<Plug>(EasyAlign)", desc = "Easy Align" },
   },
-   -- terminal mappings
+  -- terminal mappings
   t = {
     ["<esc><esc>"] = { "<C-\\><C-n>:q<cr>", desc = "Terminal quit" },
+  },
+  i = {
+    ["<c-a>"] = {
+      function() require "luasnip.extras.select_choice"() end,
+      desc = "Select choice (vim.ui.select)",
+    },
   },
 }
