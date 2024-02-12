@@ -7,7 +7,7 @@ return {
         "ansiblels",
         -- "clangd",
         "cssls",
-        "gopls", -- Go
+        "gopls",
         "html",
         "intelephense",
         "marksman", -- Markdown
@@ -15,7 +15,7 @@ return {
         "jsonls",
         -- "julials",
         "pyright",
-        -- "lua_ls",
+        "lua_ls",
         "taplo",
         -- "texlab",
         "tsserver",
