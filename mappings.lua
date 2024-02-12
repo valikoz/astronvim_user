@@ -40,14 +40,6 @@ return {
     ["<leader>af"] = { function() require("neogen").generate { type = "func" } end, desc = "Function" },
     ["<leader>at"] = { function() require("neogen").generate { type = "type" } end, desc = "Type" },
     ["<leader>aF"] = { function() require("neogen").generate { type = "file" } end, desc = "File" },
-    -- spectre
-    ["<leader>s"] = { desc = "󰛔 Search/Replace" },
-    ["<leader>ss"] = { function() require("spectre").toggle() end, desc = "Toggle Spectre" },
-    ["<leader>sf"] = { function() require("spectre").open_file_search() end, desc = "Spectre (current file)" },
-    ["<leader>sw"] = {
-      function() require("spectre").open_visual { select_word = true } end,
-      desc = "Spectre (current word)",
-    },
     -- trouble
     ["<leader>x"] = { desc = "󰒡 Trouble" },
     ["<leader>xx"] = { "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
