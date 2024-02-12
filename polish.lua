@@ -1,7 +1,5 @@
 local utils = require "user.utils"
 
--- Remove whitespace
--- vim.api.nvim_create_user_command('WhiteSpaceClean', '%s/\\s\\+$//e|nohlsearch', {})
 -- Remove extra characters
 vim.api.nvim_create_user_command("ClearWhitespaces", function()
   local save_cursor = vim.fn.getpos "."
@@ -52,7 +50,7 @@ vim.api.nvim_create_user_command("CopyToClipboard", function()
     -- Construct the command to copy to clipboard using clip.exe
     command = string.format("echo %s | clip.exe", escaped_content)
   elseif vim.fn.has "macos" then
-    command = string.format "echo %s | pbcopy"
+    command = string.format("echo %s | pbcopy", escaped_content)
   end
 
   -- Execute the command
