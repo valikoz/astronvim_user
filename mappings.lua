@@ -60,7 +60,7 @@ return {
   },
   -- terminal mappings
   t = {
-    ["<esc><esc>"] = { "<C-\\><C-n>:q<cr>", desc = "Terminal quit" },
+    ["<esc><esc>"] = { "<C-\\><C-n>", desc = "Terminal quit" },
   },
   i = {
     ["<c-a>"] = {
