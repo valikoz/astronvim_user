@@ -1,32 +1,47 @@
 local utils = require "user.utils"
 
 -- Remove whitespace
-vim.api.nvim_create_user_command('WhiteSpaceClean', '%s/\\s\\+$//e|nohlsearch', {})
+-- vim.api.nvim_create_user_command('WhiteSpaceClean', '%s/\\s\\+$//e|nohlsearch', {})
+-- Remove extra characters
+vim.api.nvim_create_user_command("ClearWhitespaces", function()
+  local save_cursor = vim.fn.getpos "."
+  vim.cmd [[%s/\s\+$//e|nohlsearch]]
+  vim.fn.setpos(".", save_cursor)
+end, { desc = "Clearing whitespaces" })
+vim.api.nvim_create_user_command("ClearCRLF", function()
+  local save_cursor = vim.fn.getpos "."
+  vim.cmd [[%s/\r\+$//e|nohlsearch]]
+  vim.fn.setpos(".", save_cursor)
+end, { desc = "Clearing carriages" })
 -- Edit snippets
-vim.api.nvim_create_user_command("LuaSnipEdit", function()
-  require('luasnip.loaders').edit_snippet_files({})
-end, { bang = true, desc = "Edit snippets" })
+vim.api.nvim_create_user_command(
+  "LuaSnipEdit",
+  function() require("luasnip.loaders").edit_snippet_files {} end,
+  { bang = true, desc = "Edit snippets" }
+)
 -- Open snippets list
-vim.api.nvim_create_user_command("LuaSnipInfo", function()
-  require("luasnip.extras.snippet_list").open()
-end, { bang = true, desc = "Open snippets list" })
+vim.api.nvim_create_user_command(
+  "LuaSnipInfo",
+  function() require("luasnip.extras.snippet_list").open() end,
+  { bang = true, desc = "Open snippets list" }
+)
 -- Execute python files
 vim.api.nvim_create_user_command("ExecutePy", function()
   local filename = vim.fn.expand "%:t"
   if vim.bo.filetype == "python" then
     vim.cmd "silent! write"
     utils.async_run({ "python3", vim.fn.expand "%:p" }, {
-      title = "Execute " .. filename
+      title = "Execute " .. filename,
     })
   else
-    vim.notify("Cannot execute " .. filename, 3, { title = "Warning" } )
+    vim.notify("Cannot execute " .. filename, 3, { title = "Warning" })
     return nil
   end
-end,{ bang = true, desc = "Execute python file" })
+end, { bang = true, desc = "Execute python file" })
 -- Copy content from unnamed register " to clipboard
 vim.api.nvim_create_user_command("CopyToClipboard", function()
   -- Get the contents of the " register
-  local register_content = vim.fn.getreg('"')
+  local register_content = vim.fn.getreg '"'
 
   -- Escape special characters in the register content
   local escaped_content = vim.fn.shellescape(register_content)
@@ -35,17 +50,15 @@ vim.api.nvim_create_user_command("CopyToClipboard", function()
 
   if vim.fn.has "win64" then
     -- Construct the command to copy to clipboard using clip.exe
-    command = string.format('echo %s | clip.exe', escaped_content)
+    command = string.format("echo %s | clip.exe", escaped_content)
   elseif vim.fn.has "macos" then
-    command = string.format("echo %s | pbcopy")
+    command = string.format "echo %s | pbcopy"
   end
 
   -- Execute the command
   local success = os.execute(command)
 
-  if not success then
-    print('Error: Unable to copy to clipboard.')
-  end
+  if not success then print "Error: Unable to copy to clipboard." end
 end, { bang = true, desc = "Copy content to clipboard" })
 -- create an augroup to easily manage autocommands
 -- vim.api.nvim_create_augroup("autohidetabline", { clear = true })
