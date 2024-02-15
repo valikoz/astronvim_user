@@ -1,8 +1,4 @@
 return {
-  -- nightfly
-  {
-    "bluz71/vim-nightfly-guicolors",
-  },
   -- catppuccin
   {
     "AstroNvim/astrocommunity",
@@ -12,9 +8,5 @@ return {
   {
     "folke/tokyonight.nvim",
     -- opts = {},
-  },
-  -- OceanicNext
-  {
-    "mhartington/oceanic-next",
   },
 }
