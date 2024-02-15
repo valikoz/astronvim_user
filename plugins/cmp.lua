@@ -12,6 +12,11 @@ return {
     local cmp = require "cmp"
     local snip_status_ok, luasnip = pcall(require, "luasnip")
     if not snip_status_ok then return end
+
+    local function has_words_before()
+      local line, col = unpack(vim.api.nvim_win_get_cursor(0))
+      return col ~= 0 and vim.api.nvim_buf_get_lines(0, line - 1, line, true)[1]:sub(col, col):match "%s" == nil
+    end
     -- modify the mapping part of the table
     opts.mapping["\f"] = cmp.mapping { -- <c-l> 0x0C FORM FEED
       i = function()
@@ -37,8 +42,16 @@ return {
         fallback()
       end
     end, { 'i', 's' })
+    opts.mapping["<C-a>"] = cmp.mapping(function(fallback)
+      if luasnip.choice_active() then
+        require "luasnip.extras.select_choice"()
+      else
+        fallback()
+      end
+    end,
+    { 'i', 's' })
     opts.mapping['<Right>'] = cmp.mapping(function(fallback)
-      if luasnip.jumpable(1) then
+      if luasnip.expand_or_locally_jumpable() then
         luasnip.jump(1)
       -- elseif luasnip.expandable() then
       --   luasnip.expand()
@@ -47,6 +60,20 @@ return {
       end
     end, { 'i', 's' })
     opts.mapping['<Left>'] = cmp.mapping(function(fallback)
+      if luasnip.expand_or_locally_jumpable() then
+        luasnip.jump(-1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' })
+    opts.mapping['<S-Right>'] = cmp.mapping(function(fallback)
+      if luasnip.jumpable(1) then
+        luasnip.jump(1)
+      else
+        fallback()
+      end
+    end, { 'i', 's' }, { desc = "Jump" })
+    opts.mapping['<S-Left>'] = cmp.mapping(function(fallback)
       if luasnip.jumpable(-1) then
         luasnip.jump(-1)
       else
@@ -56,8 +83,8 @@ return {
     opts.mapping["<Tab>"] = cmp.mapping(function(fallback)
       if cmp.visible() then
         cmp.select_next_item { behavior = cmp.SelectBehavior.Select }
-      -- elseif luasnip.expand_or_jumpable() then
-      --   luasnip.expand_or_jump()
+      elseif has_words_before() then
+        cmp.complete()
       else
         fallback()
       end
