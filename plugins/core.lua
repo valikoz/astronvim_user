@@ -3,12 +3,33 @@ return {
   { "max397574/better-escape.nvim", enabled = false },
   { "lukas-reineke/indent-blankline.nvim", enabled = false },
 
-  { "rcarriga/nvim-notify", opts = {
-    timeout = 0,
-  } },
-  { "mfussenegger/nvim-dap", dependencies = {
-    { "theHamsta/nvim-dap-virtual-text", config = true },
-  } },
+  --- TIPS: z= • Spelling suggestion
+  {
+    "folke/which-key.nvim",
+    keys = { "<leader>", },
+    event = function() return { "User AstroFile" } end,
+    opts = {
+      plugins = {
+          marks = false, -- shows a list of your marks on ' and `
+          registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+      },
+      window = {
+        winblend = 20, -- value between 0-100 0 for fully opaque and 100 for fully transparent
+      },
+    }
+  },
+  {
+    "rcarriga/nvim-notify",
+    opts = {
+      timeout = 0,
+    }
+  },
+  {
+    "mfussenegger/nvim-dap",
+    dependencies = {
+      { "theHamsta/nvim-dap-virtual-text", config = true },
+    }
+  },
   {
     "lewis6991/gitsigns.nvim",
     opts = {
