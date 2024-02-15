@@ -4,6 +4,8 @@ return {
     swapfile = false,
     scrolloff = 5,
     relativenumber = false,
+    shortmess = "filnxtToOFs",
+    cmdheight = 1,
   },
   g = {
     python3_host_prog = 0,
