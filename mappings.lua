@@ -62,10 +62,4 @@ return {
   t = {
     ["<esc><esc>"] = { "<C-\\><C-n>", desc = "Terminal quit" },
   },
-  i = {
-    ["<c-a>"] = {
-      function() require "luasnip.extras.select_choice"() end,
-      desc = "Select choice (vim.ui.select)",
-    },
-  },
 }
