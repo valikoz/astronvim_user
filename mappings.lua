@@ -47,6 +47,14 @@ return {
     ["<leader>xl"] = { "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
     ["<leader>xq"] = { "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
     ["<leader>xT"] = { "<cmd>TodoTrouble<cr>", desc = "TODOs (Trouble)" },
+    -- spectre
+    ["<leader>s"] = { desc = "󰛔 Search/Replace" },
+    ["<leader>ss"] = { function() require("spectre").toggle() end, desc = "Toggle Spectre" },
+    ["<leader>sf"] = { function() require("spectre").open_file_search() end, desc = "Spectre (current file)" },
+    ["<leader>sw"] = {
+      function() require("spectre").open_visual { select_word = true } end,
+      desc = "Spectre (current word)",
+    },
   },
   v = {
     ["<leader>s"] = { function() require("spectre").open_visual() end, desc = "Spectre" },
