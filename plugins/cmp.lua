@@ -28,14 +28,15 @@ return {
       end,
       c = cmp.mapping.close(),
     }
-    opts.mapping["<C-n>"] = cmp.mapping(function(fallback)
+    -- Use control + capital N or P to cycle between nodes from choice_node
+    opts.mapping["<C-N>"] = cmp.mapping(function(fallback)
       if luasnip.choice_active() then
         luasnip.change_choice(1)
       else
         fallback()
       end
     end, { 'i', 's' })
-    opts.mapping["<C-p>"] = cmp.mapping(function(fallback)
+    opts.mapping["<C-P>"] = cmp.mapping(function(fallback)
       if luasnip.choice_active() then
         luasnip.change_choice(-1)
       else
@@ -50,30 +51,28 @@ return {
       end
     end,
     { 'i', 's' })
-    opts.mapping['<Right>'] = cmp.mapping(function(fallback)
-      if luasnip.expand_or_locally_jumpable() then
-        luasnip.jump(1)
-      -- elseif luasnip.expandable() then
-      --   luasnip.expand()
+    opts.mapping['<C-n>'] = cmp.mapping(function()
+      if luasnip.expand_or_jumpable() then
+        luasnip.expand_or_jump()
       else
-        fallback()
+        return ""
       end
     end, { 'i', 's' })
-    opts.mapping['<Left>'] = cmp.mapping(function(fallback)
-      if luasnip.expand_or_locally_jumpable() then
+    opts.mapping['<C-p>'] = cmp.mapping(function()
+      if luasnip.locally_jumpable() then
         luasnip.jump(-1)
       else
-        fallback()
+        return ""
       end
     end, { 'i', 's' })
-    opts.mapping['<S-Right>'] = cmp.mapping(function(fallback)
+    opts.mapping['<Right>'] = cmp.mapping(function(fallback)
       if luasnip.jumpable(1) then
         luasnip.jump(1)
       else
         fallback()
       end
-    end, { 'i', 's' }, { desc = "Jump" })
-    opts.mapping['<S-Left>'] = cmp.mapping(function(fallback)
+    end, { 'i', 's' })
+    opts.mapping['<Left>'] = cmp.mapping(function(fallback)
       if luasnip.jumpable(-1) then
         luasnip.jump(-1)
       else
