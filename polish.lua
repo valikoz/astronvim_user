@@ -11,18 +11,6 @@ vim.api.nvim_create_user_command("ClearCRLF", function()
   vim.cmd [[%s/\r\+$//e|nohlsearch]]
   vim.fn.setpos(".", save_cursor)
 end, { desc = "Clearing carriages" })
--- Edit snippets
-vim.api.nvim_create_user_command(
-  "LuaSnipEdit",
-  function() require("luasnip.loaders").edit_snippet_files {} end,
-  { bang = true, desc = "Edit snippets" }
-)
--- Open snippets list
-vim.api.nvim_create_user_command(
-  "LuaSnipInfo",
-  function() require("luasnip.extras.snippet_list").open() end,
-  { bang = true, desc = "Open snippets list" }
-)
 -- Execute python files
 vim.api.nvim_create_user_command("ExecutePy", function()
   local filename = vim.fn.expand "%:t"

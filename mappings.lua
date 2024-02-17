@@ -34,26 +34,42 @@ return {
     ["<leader>N"] = { "<cmd>tabnew<cr>", desc = "New Tab" },
     ["<leader>."] = { "<cmd>cd %:p:h<cr>", desc = "Set CWD" },
     -- neogen
-    ["<leader>a"] = { desc = "󰏫 Annotate" },
-    ["<leader>a<cr>"] = { function() require("neogen").generate() end, desc = "Current" },
-    ["<leader>ac"] = { function() require("neogen").generate { type = "class" } end, desc = "Class" },
-    ["<leader>af"] = { function() require("neogen").generate { type = "func" } end, desc = "Function" },
-    ["<leader>at"] = { function() require("neogen").generate { type = "type" } end, desc = "Type" },
-    ["<leader>aF"] = { function() require("neogen").generate { type = "file" } end, desc = "File" },
+    ["<localleader>a"] = { desc = "󰏫 Annotate" },
+    ["<localleader>a<cr>"] = { function() require("neogen").generate() end, desc = "Current" },
+    ["<localleader>ac"] = { function() require("neogen").generate { type = "class" } end, desc = "Class" },
+    ["<localleader>af"] = { function() require("neogen").generate { type = "func" } end, desc = "Function" },
+    ["<localleader>at"] = { function() require("neogen").generate { type = "type" } end, desc = "Type" },
+    ["<localleader>aF"] = { function() require("neogen").generate { type = "file" } end, desc = "File" },
     -- trouble
-    ["<leader>x"] = { desc = "󰒡 Trouble" },
-    ["<leader>xx"] = { "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
-    ["<leader>xX"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
-    ["<leader>xl"] = { "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
-    ["<leader>xq"] = { "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
-    ["<leader>xT"] = { "<cmd>TodoTrouble<cr>", desc = "TODOs (Trouble)" },
+    ["<localleader>x"] = { desc = "󰒡 Trouble" },
+    ["<localleader>xx"] = { "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
+    ["<localleader>xX"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
+    ["<localleader>xl"] = { "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
+    ["<localleader>xq"] = { "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
+    ["<localleader>xT"] = { "<cmd>TodoTrouble<cr>", desc = "TODOs (Trouble)" },
     -- spectre
-    ["<leader>s"] = { desc = "󰛔 Search/Replace" },
-    ["<leader>ss"] = { function() require("spectre").toggle() end, desc = "Toggle Spectre" },
-    ["<leader>sf"] = { function() require("spectre").open_file_search() end, desc = "Spectre (current file)" },
-    ["<leader>sw"] = {
+    ["<localleader>s"] = { desc = "󰛔 Search/Replace" },
+    ["<localleader>ss"] = { function() require("spectre").toggle() end, desc = "Toggle Spectre" },
+    ["<localleader>sf"] = { function() require("spectre").open_file_search() end, desc = "Spectre (current file)" },
+    ["<localleader>sw"] = {
       function() require("spectre").open_visual { select_word = true } end,
       desc = "Spectre (current word)",
+    },
+    -- luasnip
+    ["<localleader>l"] = { desc = " LuaSnip", },
+    ["<localleader>lr"] = {
+      function()
+        vim.cmd "source ~/.config/nvim/lua/user/plugins/luasnip.lua"
+      end,
+      desc = "Reload LuaSnip"
+    },
+    ["<localleader>le"] = {
+      function() require("luasnip.loaders").edit_snippet_files {} end,
+      desc = "Edit snipppets"
+    },
+    ["<localleader>lo"] = {
+      function() require("luasnip.extras.snippet_list").open() end,
+      desc = "Edit snipppets"
     },
   },
   v = {
