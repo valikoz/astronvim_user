@@ -65,3 +65,25 @@ end, { bang = true, desc = "Copy content to clipboard" })
 --     end
 --   end,
 -- })
+
+---[TODO: move this mappings into user/mappings.lua]
+vim.keymap.set({ 'i', 's' }, '<c-n>', function()
+   if require("luasnip").expand_or_jumpable() then
+    require("luasnip").expand_or_jump()
+   else
+    return nil
+   end
+end, { desc = "Jump to next node", silent = true })
+
+vim.keymap.set({ 'i', 's' }, '<c-p>', function()
+  if require("luasnip").jumpable() then
+    require("luasnip").jump(-1)
+  else
+    return false
+  end
+end, { desc = "Jump to previous node", silent = true })
+
+vim.keymap.set({ "i", "s" }, "<c-x>", utils.untrigger, {
+  desc = "Undo a snippet right after triggering it",
+  silent = true
+})
