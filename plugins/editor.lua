@@ -87,7 +87,7 @@ return {
     "nvim-pack/nvim-spectre",
     cmd = "Spectre",
     opts = function()
-      local prefix = "<leader>s"
+      local prefix = "<localleader>s"
       return {
         open_cmd = "new",
         mapping = {
