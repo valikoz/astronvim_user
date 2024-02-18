@@ -1,5 +1,6 @@
 local astro_utils = require "astronvim.utils"
 
+
 return {
   n = {
     -- disable default bindings
@@ -57,19 +58,13 @@ return {
     },
     -- luasnip
     ["<localleader>l"] = { desc = " LuaSnip", },
-    ["<localleader>lr"] = {
-      function()
-        vim.cmd "source ~/.config/nvim/lua/user/plugins/luasnip.lua"
-      end,
-      desc = "Reload LuaSnip"
-    },
     ["<localleader>le"] = {
       function() require("luasnip.loaders").edit_snippet_files {} end,
       desc = "Edit snipppets"
     },
     ["<localleader>lo"] = {
       function() require("luasnip.extras.snippet_list").open() end,
-      desc = "Edit snipppets"
+      desc = "Open snippet list"
     },
   },
   v = {
