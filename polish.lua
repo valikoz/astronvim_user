@@ -66,7 +66,12 @@ vim.keymap.set({ 'i', 's' }, '<c-p>', function()
   end
 end, { desc = "Jump to previous node", silent = true })
 
-vim.keymap.set({ "i", "s" }, "<c-x>", utils.untrigger, {
+vim.keymap.set({ "i", "s" }, "<c-u>", function()
+  if require("luasnip").in_snippet() then
+    utils.untrigger()
+    require("luasnip").unlink_current()
+  end
+end, {
   desc = "Undo a snippet right after triggering it",
   silent = true
 })
