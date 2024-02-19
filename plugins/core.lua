@@ -50,8 +50,10 @@ return {
   },
   {
     "windwp/nvim-autopairs",
-    enabled = function()
-      if vim.bo.ft == "tex" then return false end
+    config = function()
+      require('nvim-autopairs').setup({
+      disable_filetype = { "tex", },
+    })
     end
   }
 }
