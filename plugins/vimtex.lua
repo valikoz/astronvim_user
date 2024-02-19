@@ -2,6 +2,7 @@ local config = function()
   vim.g.vimtex_quickfix_enabled = 0
   -- Open pdfviwer on compile
   -- vim.g.vimtex_view_automatic = 1
+  vim.g.vimtex_syntax_enabled = 0
 
   -- Check the operating system and set platform-specific configurations
   if vim.fn.has("win64") == 1 then
