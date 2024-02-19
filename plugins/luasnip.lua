@@ -7,7 +7,7 @@ return {
   config = function()
     require("luasnip").config.setup {
       enable_autosnippets = true,
-      store_selection_keys = "<Tab>",
+      store_selection_keys = "<c-x>",
       history = true,
       update_events = "TextChanged,TextChangedI",
     }
