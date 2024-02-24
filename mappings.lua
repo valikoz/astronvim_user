@@ -1,4 +1,5 @@
 local astro_utils = require "astronvim.utils"
+local utils = require "user.utils"
 
 
 return {
@@ -36,7 +37,7 @@ return {
     ["<leader>."] = { "<cmd>cd %:p:h<cr>", desc = "Set CWD" },
     -- neogen
     ["<localleader>a"] = { desc = "󰏫 Annotate" },
-    ["<localleader>a<cr>"] = { function() require("neogen").generate() end, desc = "Current" },
+    ["<localleader>a<cr>"] = { function() require("neogen").generate({}) end, desc = "Current" },
     ["<localleader>ac"] = { function() require("neogen").generate { type = "class" } end, desc = "Class" },
     ["<localleader>af"] = { function() require("neogen").generate { type = "func" } end, desc = "Function" },
     ["<localleader>at"] = { function() require("neogen").generate { type = "type" } end, desc = "Type" },
@@ -66,9 +67,69 @@ return {
       function() require("luasnip.extras.snippet_list").open() end,
       desc = "Open snippet list"
     },
+    ["<localleader>m"] = { desc = "󱁤 Compiler" },
+    ["<localleader>mb"] = {
+      function()
+        local filename = vim.fn.expand "%:t"
+        utils.async_run({
+          "pandoc",
+          vim.fn.expand "%",
+          "--pdf-engine=xelatex",
+          "--variable",
+          "urlcolor=blue",
+          "-t",
+          "beamer",
+          "-o",
+          vim.fn.expand "%:r" .. ".pdf",
+        }, { on_finish = function() astro_utils.notify("Compiled " .. filename) end })
+      end,
+      desc = "Compile Beamer",
+    },
+    ["<localleader>mp"] = {
+      function()
+        local pdf_path = vim.fn.expand "%:r" .. ".pdf"
+        if vim.fn.filereadable(pdf_path) == 1 then vim.fn.jobstart { "pdfpc", pdf_path } end
+      end,
+      desc = "Present Output",
+    },
+    ["<localleader>ml"] = { function() utils.toggle_qf() end, desc = "Logs" },
+    ["<localleader>mt"] = { "<cmd>TexlabBuild<cr>", desc = "LaTeX" },
+    ["<localleader>mf"] = { "<cmd>TexlabForward<cr>", desc = "Forward Search" },
+    --
+    ["<localleader>c"] = { desc = "󰃢 Clean Up" },
+    ["<localleader>cs"] = { function()
+        local save_cursor = vim.fn.getpos "."
+        vim.cmd [[%s/\s\+$//e|nohlsearch]]
+        vim.fn.setpos(".", save_cursor)
+      end,
+      desc = "Remove all whitespace"
+    },
+    ["<localleader>cc"] = { function()
+        local save_cursor = vim.fn.getpos "."
+        vim.cmd [[%s/\r\+$//e|nohlsearch]]
+        vim.fn.setpos(".", save_cursor)
+      end
+      ,desc = "Remove all carriage"
+    },
+    -- exec
+    ["<localleader>e"] = { desc = " Execute" },
+    ["<localleader>ep"] = { function()
+      local filename = vim.fn.expand "%:t"
+      if vim.bo.filetype == "python" then
+        vim.cmd "silent! write"
+        utils.async_run({ "python3", vim.fn.expand "%:p" }, {
+          title = "Execute " .. filename,
+        })
+      else
+        vim.notify("Cannot execute " .. filename, 3, { title = "Warning" })
+        return nil
+      end
+    end,
+      desc = "Execute python file",
+    },
   },
   v = {
-    ["<leader>s"] = { function() require("spectre").open_visual() end, desc = "Spectre" },
+    ["<localleader>s"] = { function() require("spectre").open_visual() end, desc = "Spectre" },
   },
   x = {
     -- better increment/decrement
