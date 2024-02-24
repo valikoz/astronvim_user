@@ -17,7 +17,10 @@ return {
       },
     },
     opts = {
-      -- auto_install = vim.fn.executable "tree-sitter" == 1,
+       highlight = {
+               enable = true,
+               additional_vim_regex_highlighting = { "latex", "markdown" },
+       },
 
       context_commentstring = {
         enable = true,
