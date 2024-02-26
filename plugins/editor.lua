@@ -21,6 +21,7 @@ return {
           cmdheight = 1,
           laststatus = 0,
         },
+        twilight = { enabled = false }, -- disable to start Twilight when zen mode opens
       },
       on_open = function() -- disable diagnostics, indent blankline, and winbar
         vim.g.diagnostics_mode_old = vim.g.diagnostics_mode
@@ -38,6 +39,13 @@ return {
         vim.diagnostic.config(require("astronvim.utils.lsp").diagnostics[vim.g.diagnostics_mode])
       end,
     },
+  },
+  {
+    "folke/twilight.nvim",
+    cmd = "TwilightEnable",
+    opts = {
+      context = -1,
+    }
   },
   {
     "danymat/neogen",
