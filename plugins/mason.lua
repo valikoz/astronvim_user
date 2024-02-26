@@ -5,19 +5,14 @@ return {
     opts = {
       ensure_installed = {
         "ansiblels",
-        -- "clangd",
         "cssls",
-        "gopls",
         "html",
         "intelephense",
         "marksman", -- Markdown
-        -- "neocmake",
         "jsonls",
-        -- "julials",
         "pyright",
         "lua_ls",
         "taplo",
-        -- "texlab",
         "tsserver",
         "yamlls",
       },
@@ -42,6 +37,7 @@ return {
   },
   {
     "jay-babu/mason-nvim-dap.nvim",
+    enabled = vim.fn.has "unix" == 1,
     opts = {
       ensure_installed = {
         "bash",
