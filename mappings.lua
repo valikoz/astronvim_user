@@ -36,39 +36,39 @@ return {
     ["<leader>N"] = { "<cmd>tabnew<cr>", desc = "New Tab" },
     ["<leader>."] = { "<cmd>cd %:p:h<cr>", desc = "Set CWD" },
     -- neogen
-    ["<localleader>a"] = { desc = "󰏫 Annotate" },
-    ["<localleader>a<cr>"] = { function() require("neogen").generate({}) end, desc = "Current" },
-    ["<localleader>ac"] = { function() require("neogen").generate { type = "class" } end, desc = "Class" },
-    ["<localleader>af"] = { function() require("neogen").generate { type = "func" } end, desc = "Function" },
-    ["<localleader>at"] = { function() require("neogen").generate { type = "type" } end, desc = "Type" },
-    ["<localleader>aF"] = { function() require("neogen").generate { type = "file" } end, desc = "File" },
+    ["<leader>a"] = { desc = "󰏫 Annotate" },
+    ["<leader>a<cr>"] = { function() require("neogen").generate({}) end, desc = "Current" },
+    ["<leader>ac"] = { function() require("neogen").generate { type = "class" } end, desc = "Class" },
+    ["<leader>af"] = { function() require("neogen").generate { type = "func" } end, desc = "Function" },
+    ["<leader>at"] = { function() require("neogen").generate { type = "type" } end, desc = "Type" },
+    ["<leader>aF"] = { function() require("neogen").generate { type = "file" } end, desc = "File" },
     -- trouble
-    ["<localleader>x"] = { desc = "󰒡 Trouble" },
-    ["<localleader>xx"] = { "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
-    ["<localleader>xX"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
-    ["<localleader>xl"] = { "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
-    ["<localleader>xq"] = { "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
-    ["<localleader>xT"] = { "<cmd>TodoTrouble<cr>", desc = "TODOs (Trouble)" },
+    ["<leader>x"] = { desc = "󰒡 Trouble" },
+    ["<leader>xx"] = { "<cmd>TroubleToggle document_diagnostics<cr>", desc = "Document Diagnostics (Trouble)" },
+    ["<leader>xX"] = { "<cmd>TroubleToggle workspace_diagnostics<cr>", desc = "Workspace Diagnostics (Trouble)" },
+    ["<leader>xl"] = { "<cmd>TroubleToggle loclist<cr>", desc = "Location List (Trouble)" },
+    ["<leader>xq"] = { "<cmd>TroubleToggle quickfix<cr>", desc = "Quickfix List (Trouble)" },
+    ["<leader>xT"] = { "<cmd>TodoTrouble<cr>", desc = "TODOs (Trouble)" },
     -- spectre
-    ["<localleader>s"] = { desc = "󰛔 Search/Replace" },
-    ["<localleader>ss"] = { function() require("spectre").toggle() end, desc = "Toggle Spectre" },
-    ["<localleader>sf"] = { function() require("spectre").open_file_search() end, desc = "Spectre (current file)" },
-    ["<localleader>sw"] = {
+    ["<leader>s"] = { desc = "󰛔 Search/Replace" },
+    ["<leader>ss"] = { function() require("spectre").toggle() end, desc = "Toggle Spectre" },
+    ["<leader>sf"] = { function() require("spectre").open_file_search() end, desc = "Spectre (current file)" },
+    ["<leader>sw"] = {
       function() require("spectre").open_visual { select_word = true } end,
       desc = "Spectre (current word)",
     },
     -- luasnip
-    ["<localleader>l"] = { desc = " LuaSnip", },
-    ["<localleader>le"] = {
+    ["<leader>L"] = { desc = " LuaSnip", },
+    ["<leader>Le"] = {
       function() require("luasnip.loaders").edit_snippet_files {} end,
       desc = "Edit snipppets"
     },
-    ["<localleader>lo"] = {
+    ["<leader>Lo"] = {
       function() require("luasnip.extras.snippet_list").open() end,
       desc = "Open snippet list"
     },
-    ["<localleader>m"] = { desc = "󱁤 Compiler" },
-    ["<localleader>mb"] = {
+    ["<leader>m"] = { desc = "󱁤 Compiler" },
+    ["<leader>mb"] = {
       function()
         local filename = vim.fn.expand "%:t"
         utils.async_run({
@@ -85,35 +85,8 @@ return {
       end,
       desc = "Compile Beamer",
     },
-    ["<localleader>mp"] = {
-      function()
-        local pdf_path = vim.fn.expand "%:r" .. ".pdf"
-        if vim.fn.filereadable(pdf_path) == 1 then vim.fn.jobstart { "pdfpc", pdf_path } end
-      end,
-      desc = "Present Output",
-    },
-    ["<localleader>ml"] = { function() utils.toggle_qf() end, desc = "Logs" },
-    ["<localleader>mt"] = { "<cmd>TexlabBuild<cr>", desc = "LaTeX" },
-    ["<localleader>mf"] = { "<cmd>TexlabForward<cr>", desc = "Forward Search" },
-    --
-    ["<localleader>c"] = { desc = "󰃢 Clean Up" },
-    ["<localleader>cs"] = { function()
-        local save_cursor = vim.fn.getpos "."
-        vim.cmd [[%s/\s\+$//e|nohlsearch]]
-        vim.fn.setpos(".", save_cursor)
-      end,
-      desc = "Remove all whitespace"
-    },
-    ["<localleader>cc"] = { function()
-        local save_cursor = vim.fn.getpos "."
-        vim.cmd [[%s/\r\+$//e|nohlsearch]]
-        vim.fn.setpos(".", save_cursor)
-      end
-      ,desc = "Remove all carriage"
-    },
-    -- exec
-    ["<localleader>e"] = { desc = " Execute" },
-    ["<localleader>ep"] = { function()
+    ["<leader>mq"] = { function() utils.toggle_qf() end, desc = "qf" },
+    ["<leader>mp"] = { function()
       local filename = vim.fn.expand "%:t"
       if vim.bo.filetype == "python" then
         vim.cmd "silent! write"
@@ -127,9 +100,27 @@ return {
     end,
       desc = "Execute python file",
     },
+    --
+    ["<leader>r"] = { desc = "󰃢 Remove" },
+    ["<leader>rs"] = { function()
+        local save_cursor = vim.fn.getpos "."
+        vim.cmd [[%s/\s\+$//e|nohlsearch]]
+        vim.fn.setpos(".", save_cursor)
+      end,
+      desc = "Remove all whitespace"
+    },
+    ["<leader>rc"] = { function()
+        local save_cursor = vim.fn.getpos "."
+        vim.cmd [[%s/\r\+$//e|nohlsearch]]
+        vim.fn.setpos(".", save_cursor)
+      end
+      ,desc = "Remove all carriage"
+    },
+    -- exec
+    -- ["<leader>E"] = { desc = " Execute" },
   },
   v = {
-    ["<localleader>s"] = { function() require("spectre").open_visual() end, desc = "Spectre" },
+    ["<leader>s"] = { function() require("spectre").open_visual() end, desc = "Spectre" },
   },
   x = {
     -- better increment/decrement
@@ -140,6 +131,6 @@ return {
   },
   -- terminal mappings
   t = {
-    ["<esc><esc>"] = { "<C-\\><C-n>", desc = "Terminal quit" },
+    ["<esc>"] = { "<C-\\><C-n>", desc = "Terminal quit" },
   },
 }
