@@ -1,5 +1,3 @@
-local utils = require "user.utils"
-
 -- commands
 -- Copy content from unnamed register " to clipboard
 vim.api.nvim_create_user_command("CopyToClipboard", function()
@@ -25,39 +23,26 @@ vim.api.nvim_create_user_command("CopyToClipboard", function()
 end, { bang = true, desc = "Copy content to clipboard" })
 
 
+-- autocmd
+vim.api.nvim_create_autocmd("BufEnter", {
+  desc = "Make q close floats",
+  group = vim.api.nvim_create_augroup("q_close_windows", { clear = true }),
+  callback = function(args)
+    local buftype = vim.api.nvim_get_option_value("buftype", { buf = args.buf })
+    if vim.tbl_contains({ "terminal", "help", "quickfix", "nofile", }, buftype) and vim.fn.maparg("q", "n") == "" then
+      vim.keymap.set("n", "q", "<cmd>close<cr>", {
+        desc = "Close window",
+        buffer = args.buf,
+        silent = true,
+        nowait = true,
+      })
+    end
+  end,
+})
+
+
 -- globals
 P = function(v)
   print(vim.inspect(v))
   return v
 end
-
--- keymaps
---- TODO: move this mappings into user/mappings.lua
-if not pcall(require, "luasnip") then
-  return
-end
-vim.keymap.set({ 'i', 's' }, '<c-n>', function()
-   if require("luasnip").expand_or_jumpable() then
-    require("luasnip").expand_or_jump()
-   else
-    return nil
-   end
-end, { desc = "Jump to next node", silent = true })
-
-vim.keymap.set({ 'i', 's' }, '<c-p>', function()
-  if require("luasnip").jumpable() then
-    require("luasnip").jump(-1)
-  else
-    return false
-  end
-end, { desc = "Jump to previous node", silent = true })
-
-vim.keymap.set({ "i", "s" }, "<c-x>", function()
-  if require("luasnip").in_snippet() then
-    utils.untrigger()
-    require("luasnip").unlink_current()
-  end
-end, {
-  desc = "Undo a snippet right after triggering it",
-  silent = true
-})
