@@ -11,7 +11,7 @@ local config = function()
           buffer = event.buf, -- Specify a buffer number for buffer local mappings to show only in tex buffers
         }
         local mappings = {
-          ["<localleader><localleader>"] = {
+          ["<leader><leader>"] = {
             name = "+VimTeX",
             a = "Show Context Menu",
             C = "Full Clean",
@@ -100,10 +100,28 @@ local config = function()
         wk.register(objects, opts)
       end,
     })
-  vim.g.vimtex_mappings_prefix = "<localleader><localleader>"
+  vim.g.vimtex_mappings_prefix = "<leader><leader>"
   -- The quickfix window is never opened/closed automatically.
   vim.g.vimtex_quickfix_mode = 0
-  vim.g.vimtex_syntax_enabled = 0
+  -- Some text objs depend on vimtex syntax
+  vim.g.vimtex_syntax_enabled = 1
+  vim.g.vimtex_indent_enabled = 1
+  vim.g.vimtex_indent_lists = {}
+  vim.g.vimtex_syntax_conceal = {
+    accents = 1,
+    ligatures = 1,
+    cites = 1,
+    fancy = 1,
+    spacing = 0,
+    greek = 1,
+    math_bounds = 0,
+    math_delimiters = 1,
+    math_fracs = 0,
+    math_super_sub = 1,
+    math_symbols = 0,
+    sections = 0,
+    styles = 0,
+  }
 
   -- Check the operating system and set platform-specific configurations
   if vim.fn.has("win64") == 1 then
@@ -111,9 +129,10 @@ local config = function()
     vim.g.vimtex_view_general_viewer = "SumatraPDF"
     vim.g.vimtex_view_general_options = "-reuse-instance -forward-search @tex @line @pdf"
   else
+    -- To start inverse search, toggle synctex, then press Control and 
+    -- click the text you want to inv-search
     vim.g.vimtex_view_method = "sioyek"
-    -- vim.g.vimtex_view_method = "texshop"
-    -- vim.g.vimtex_view_texshop_sync = 1
+    vim.g.vimtex_view_sioyek_options = "--reuse-window"
   end
 end
 
