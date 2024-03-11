@@ -18,8 +18,9 @@ return {
     },
     opts = {
        highlight = {
-               enable = true,
-               additional_vim_regex_highlighting = { "latex", "markdown" },
+         enable = true,
+         disable = { "latex" },
+         additional_vim_regex_highlighting = { "latex", "markdown" },
        },
 
       context_commentstring = {
