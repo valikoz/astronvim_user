@@ -13,6 +13,10 @@ NORMAL MODE
 
 <C-c>	return from any mode to normal mode
 
+									motion
+`;`	next match
+`,`	prev match
+
 							     	       *cases*
  
 `~`	invert the case of the character under the
