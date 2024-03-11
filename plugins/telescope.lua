@@ -9,7 +9,7 @@ return {
     {
       "jay-babu/project.nvim",
       name = "project_nvim",
-      event = "VeryLazy",
+      event = "User Astrofile",
       opts = { ignore_lsp = { "lua_ls" } },
     },
   },
