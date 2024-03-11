@@ -1,7 +1,7 @@
 return {
   settings = {
     texlab = {
-      build = { onSave = true },
+      build = { onSave = false },
       forwardSearch = { executable = "sioyek", args = {
         "--reuse-window",
         "--execute-command",
