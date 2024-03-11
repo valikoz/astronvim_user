@@ -45,15 +45,26 @@ return {
         filtered_items = {
           always_show = { ".github", ".gitignore" },
         },
+          follow_current_file = {
+            -- enabled = false,
+            leave_dirs_open = true, -- `false` closes auto expanded dirs, such as with `:Neotree reveal`
+          },
       },
     },
   },
   {
+    --- TODO: fix "dressinginput"
     "windwp/nvim-autopairs",
     config = function()
       require('nvim-autopairs').setup({
-      disable_filetype = { "tex", "TelescopePrompt", "text", },
-    })
+        disable_filetype = {
+            "tex", "TelescopePrompt", "text",
+            "neo-tree-popup", "spectre_panel",
+            "nofile", "quickfix", "prompt",
+            "dressinginput", "DressingSelect",
+        },
+      })
+      require('nvim-autopairs').remove_rule([[`]])
     end
   }
 }
