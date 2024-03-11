@@ -82,20 +82,18 @@ return {
     keys = {
       { "sa", desc = "Add surrounding", mode = { "n", "v" } },
       { "sd", desc = "Delete surrounding" },
-      { "sf", desc = "Find right surrounding" },
-      { "sF", desc = "Find left surrounding" },
       { "sh", desc = "Highlight surrounding" },
       { "sr", desc = "Replace surrounding" },
       { "sn", desc = "Update `MiniSurround.config.n_lines`" },
     },
-    opts = { n_lines = 200 },
+    opts = { n_lines = 100, mappings = { find = '', find_left = '' } },
   },
   -- Need to install sed (replace tool)
    {
     "nvim-pack/nvim-spectre",
     cmd = "Spectre",
     opts = function()
-      local prefix = "<localleader>s"
+      local prefix = "<leader>s"
       return {
         open_cmd = "new",
         mapping = {
@@ -109,5 +107,29 @@ return {
         },
       }
     end,
+  },
+  {
+    "folke/flash.nvim",
+    event = "User AstroFile",
+    opts = {
+      modes = {
+        -- disable during regular search
+        search = { enabled = false, },
+        char = {
+          enabled = false,
+          -- hide after jump when not using jump labels
+          autohide = true,
+          -- set to `false` to use the current line only
+          multi_line = false,
+          keys = { "f", "F", "t", "T", ";", [","] = "<localleader>" },
+        },
+      },
+    },
+    keys = {
+      { "sf", mode = { "n", "x", "o" }, function() require("flash").jump() end, desc = "Flash Jump" },
+      { "S", mode = { "n", "x", "o" }, function() require("flash").treesitter() end, desc = "Flash Treesitter" },
+      { "R", mode = { "o", "x" }, function() require("flash").treesitter_search() end, desc = "Treesitter Search" },
+     { "<c-s>", mode = { "c" }, function() require("flash").toggle() end, desc = "Toggle Flash Search" },
+    }
   },
 }
