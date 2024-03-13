@@ -6,6 +6,7 @@ return {
     relativenumber = false,
     shortmess = "filnxtToOFs",
     cmdheight = 1,
+    fillchars = "",
   },
   g = {
     python3_host_prog = 0,
