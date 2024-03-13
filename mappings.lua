@@ -100,6 +100,19 @@ return {
     end,
       desc = "Execute python file",
     },
+    ["<leader>ml"] = {
+      function()
+        local filename = vim.fn.expand "%:t"
+        if vim.bo.filetype == "lua" then
+          vim.cmd "silent! write"
+          utils.async_run({ "lua", vim.fn.expand "%:p" }, { title = "Execute " .. filename })
+        else
+          vim.notify("Cannot execute " .. filename, 3, { title = "Warning" } )
+          return nil
+        end
+      end,
+      desc = "Execute lua file",
+    },
     --
     ["<leader>r"] = { desc = "󰃢 Remove" },
     ["<leader>rs"] = { function()
@@ -118,6 +131,8 @@ return {
     },
     -- exec
     -- ["<leader>E"] = { desc = " Execute" },
+    -- toggle
+    ["<leader><localleader>"] = { desc = "  Toggle" },
   },
   v = {
     ["<leader>s"] = { function() require("spectre").open_visual() end, desc = "Spectre" },
