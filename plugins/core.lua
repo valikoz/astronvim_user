@@ -13,6 +13,9 @@ return {
           marks = false, -- shows a list of your marks on ' and `
           registers = false, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
       },
+      layout = {
+        height = { min = 4, max = 15 },
+      },
       window = {
         winblend = 20, -- value between 0-100 0 for fully opaque and 100 for fully transparent
       },
@@ -22,6 +25,7 @@ return {
     "rcarriga/nvim-notify",
     opts = {
       timeout = 0,
+      background_colour = "#000000",
     }
   },
   {
