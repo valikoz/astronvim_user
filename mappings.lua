@@ -134,6 +134,9 @@ return {
     -- toggle
     ["<leader><localleader>"] = { desc = "  Toggle" },
   },
+  i = {
+    ["<c-v>"] = { "<esc>", desc = "Normal mode" }
+  },
   v = {
     ["<leader>s"] = { function() require("spectre").open_visual() end, desc = "Spectre" },
   },
