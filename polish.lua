@@ -29,7 +29,9 @@ vim.api.nvim_create_autocmd("BufEnter", {
   group = vim.api.nvim_create_augroup("q_close_windows", { clear = true }),
   callback = function(args)
     local buftype = vim.api.nvim_get_option_value("buftype", { buf = args.buf })
-    if vim.tbl_contains({ "terminal", "help", "quickfix", "nofile", }, buftype) and vim.fn.maparg("q", "n") == "" then
+    local is_modified = vim.api.nvim_get_option_value("modified", { buf = args.buf })
+    local is_buffer = vim.tbl_contains({ "terminal", "help", "quickfix", "nofile", }, buftype)
+    if is_buffer or is_modified and vim.fn.maparg("q", "n") == "" then
       vim.keymap.set("n", "q", "<cmd>close<cr>", {
         desc = "Close window",
         buffer = args.buf,
