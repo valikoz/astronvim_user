@@ -2,19 +2,21 @@ return {
   "catppuccin/nvim",
   name = "catppuccin",
   opts = function()
+    local latte = require("catppuccin.palettes").get_palette "latte"
     local mappings = {
-      ["t"] = { function()
-        local cat = require("catppuccin")
-        cat.options.transparent_background = not cat.options.transparent_background
-        cat.compile()
-        vim.cmd.colorscheme(vim.g.colors_name)
-      end,
-      "Toggle transparency"
+      ["t"] = {
+        function()
+          local cat = require "catppuccin"
+          cat.options.transparent_background = not cat.options.transparent_background
+          cat.compile()
+          vim.cmd.colorscheme(vim.g.colors_name)
+        end,
+        "Toggle transparency",
       },
     }
     require("which-key").register(mappings, {
       mode = "n",
-      prefix = "<leader><localleader>"
+      prefix = "<leader><localleader>",
     })
     return {
       transparent_background = true,
@@ -56,7 +58,15 @@ return {
         ["@text.uri"] = { style = { "underline" } },
         ["@tag.attribute"] = { style = {} },
         ["@tag.attribute.tsx"] = { style = {} },
-        WhichKeyFloat = { bg = "#1e1e2e" },
+        -- WhichKeyFloat = { bg = "#1e1e2e" },
+        WhichKeyFloat = { link = "FloatBorder" },
+      },
+      color_overrides = {
+        latte = {
+          base = "#F7F8F8",
+          -- mantle = "#242424",
+          -- crust = "#474747",
+        },
       },
     }
   end,
