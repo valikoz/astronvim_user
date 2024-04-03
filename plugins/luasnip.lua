@@ -2,7 +2,10 @@ return {
   "L3MON4D3/LuaSnip",
   dependencies = {
     -- locally load snippets
-    { dir = "~/plugins/sniplib.nvim", }
+    { 
+      dir = "~/plugins/sniplib.nvim",
+      config = function() require("sniplib").lazy_load() end 
+    },
   },
   config = function()
     require("luasnip").config.setup {
@@ -18,6 +21,5 @@ return {
     require("luasnip.loaders.from_vscode").load {
       exclude = { "tex", },
     }
-    require("sniplib").lazy_load()
   end,
 }
