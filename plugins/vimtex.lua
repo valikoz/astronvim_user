@@ -105,7 +105,7 @@ local config = function()
   vim.g.vimtex_quickfix_mode = 0
   -- Some text objs depend on vimtex syntax
   vim.g.vimtex_syntax_enabled = 1
-  vim.g.vimtex_indent_enabled = 1
+  vim.g.vimtex_indent_enabled = 0
   vim.g.vimtex_indent_lists = {}
   vim.g.vimtex_syntax_conceal = {
     accents = 1,
