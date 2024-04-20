@@ -44,5 +44,5 @@ nvim
 #### Install User Settings
 
 ```powershell
-git clone https://github.com/Valikoz/astronvim_user.git $env:LOCALAPPDATA\nvim\lua\user
+git clone https://github.com/valikoz/astronvim_user.git $env:LOCALAPPDATA\nvim\lua\user
 ```
